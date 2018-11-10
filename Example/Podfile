@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'NonScrollView_Example' do
+  pod 'NonScrollView', :path => '../'
+
+  target 'NonScrollView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
