@@ -1,0 +1,6 @@
+framework module NonScrollView {
+  umbrella header "NonScrollView-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "NonScrollView",
+  "version": "0.1.0",
+  "summary": "A short description of NonScrollView.",
+  "description": "NonScrollView is not a scroll view.",
+  "homepage": "https://github.com/int123c/NonScrollView",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "int123c": "int123c@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/int123c/NonScrollView.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "NonScrollView/Classes/**/*"
+}

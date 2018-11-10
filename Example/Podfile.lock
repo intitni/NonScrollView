@@ -1,0 +1,16 @@
+PODS:
+  - NonScrollView (0.1.0)
+
+DEPENDENCIES:
+  - NonScrollView (from `../`)
+
+EXTERNAL SOURCES:
+  NonScrollView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  NonScrollView: bf9c2f933df8e76c7aa1a30f457d003b5cfd0cd5
+
+PODFILE CHECKSUM: ef01f762147a6ecb673300a052ab55643bafc450
+
+COCOAPODS: 1.5.3
