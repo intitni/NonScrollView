@@ -124,14 +124,12 @@ open class HeaderSegmentController: UIViewController {
                         return CGSize(width: ref.size.width,
                                       height: max(ref.size.height - self.defaultHeaderHeight, height + self.defaultHeaderHeight))
                     }
-                    return CGSize(width: ref.size.height, height: ref.size.height)
+                    return CGSize(width: ref.size.width, height: ref.size.height + self.defaultHeaderHeight)
             })
             
             let it = NonScrollView(frame: .zero, layout: layout)
             if #available(iOS 11.0, *) {
                 it.contentInsetAdjustmentBehavior = .never
-            } else {
-                // Fallback on earlier versions
             }
             it.alwaysBounceVertical = true
             it.translatesAutoresizingMaskIntoConstraints = false
@@ -147,8 +145,6 @@ open class HeaderSegmentController: UIViewController {
         }()
         
         observeCurrentScrollViewContentHeightIfExists()
-        
-        
         
         scrollView.recognizer.onChange = { [unowned self] rec in
             let translationY = rec.translation.y
@@ -177,9 +173,11 @@ open class HeaderSegmentController: UIViewController {
                         let newFrame = self.segmentControllerFrame - rec.translation
                         self.segmentControllerFrame = CGRect(origin: .init(x: 0, y: max(newFrame.origin.y, 0)), size: .zero)
                     }
+                    
                 } else {
                     scrollable.contentOffset += rec.translation
                 }
+                
                 
              case (.some(let scrollable), false):
                 
@@ -199,15 +197,16 @@ open class HeaderSegmentController: UIViewController {
                                 self.segmentControllerFrame -= CGPoint(x: 0, y: newOffset.y)
                             }
                         } else {
-                            #warning("")
                             let newFrame = self.segmentControllerFrame - rec.translation
-                            self.segmentControllerFrame = CGRect(origin: .init(x: 0, y: min(newFrame.origin.y, self.defaultHeaderHeight)), size: .zero)
+                            self.segmentControllerFrame = CGRect(origin: .init(x: 0, y: newFrame.origin.y), size: .zero)
                         }
                         
                     } else {
                         let newFrame = self.segmentControllerFrame - rec.translation
                         self.segmentControllerFrame = CGRect(origin: .init(x: 0, y: max(newFrame.origin.y, 0)), size: .zero)
                     }
+                    
+                    self.calibrateContentInset()
                 }
                 
             case (.none, _):
@@ -225,25 +224,35 @@ open class HeaderSegmentController: UIViewController {
             self.scrollView.invalidateLayout()
         }
     }
-    
-    private func calibrateContentOffset(to offset: CGPoint) {
+
+    @discardableResult
+    private func calibrateContentOffset() -> CGPoint {
+        let segmentOffsetY = defaultHeaderHeight - segmentControllerFrame.origin.y
+        let scrollableContentOffsetY = currentScrollView?.contentOffset.y ?? 0
+        let offset = CGPoint(x: 0, y: segmentOffsetY + scrollableContentOffsetY)
         scrollView.recognizer.lastContentOffset = offset
         scrollView.recognizer.contentOffset = offset
         scrollView.contentOffset = offset
+        return offset
+    }
+    
+    private func calibrateContentInset() {
+        let hitTop = self.segmentControllerFrame.origin.y <= 0
+        let bottom = scrollView.contentInset.bottom
+        let new = UIEdgeInsets(top: hitTop ? 0 : -(currentScrollView?.contentOffset.y ?? 0),
+                               left: 0, bottom: bottom, right: 0)
+        scrollView.contentInset = new
+        scrollView.scrollIndicatorInsets = new
     }
 }
 
 extension HeaderSegmentController: SegmentControllerDelegate {
     
-    
     open func segmentControllerDidScroll(toPageIndex pageIndex: Int) {
-        let offset = cachedContentOffset[pageIndex] ?? .zero
-        let calibrated = CGPoint(
-            x: 0,
-            y: offset.y + (cachedGap[pageIndex] ?? defaultHeaderHeight) - segmentControllerFrame.origin.y)
-        calibrateContentOffset(to: calibrated)
+        let offset = calibrateContentOffset()
+        calibrateContentInset()
         scrollView.invalidateLayout()
-        scrollView.contentOffset = calibrated
+        scrollView.contentOffset = offset
         
         observeCurrentScrollViewContentHeightIfExists()
     }

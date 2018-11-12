@@ -4,17 +4,29 @@ import UIKit
 
 /// Treats `NonScrollView`'s `contentOffset` as touches.
 public final class NonScrollViewScrollRecognizer {
+    public enum ScrollState {
+        case stable, tracking, dragging, decelerating
+    }
+    
     public var onChange: ((NonScrollViewScrollRecognizer)->Void)? = nil
-    public var touchState: UIGestureRecognizer.State { return panGestureRecognizer?.state ?? .possible }
+    public var scrollState: ScrollState {
+        guard let s = scrollView else { return .stable}
+        if s.isTracking { return .tracking }
+        if s.isDecelerating { return .decelerating }
+        if s.isDragging { return .dragging }
+        
+        return .stable
+    }
+    public var touchState: UIGestureRecognizer.State { return panGestureRecognizer.state }
     public var lastContentOffset: CGPoint = .zero
     public var contentOffset: CGPoint = .zero
     public var translation: CGPoint { return contentOffset - lastContentOffset }
     
-    weak var panGestureRecognizer: UIPanGestureRecognizer? = nil
-    weak var scrollView: NonScrollView? = nil
+    var panGestureRecognizer: UIPanGestureRecognizer { return scrollView.panGestureRecognizer }
+    weak var scrollView: NonScrollView!
     
     public func touchLocation(in view: UIView?) -> CGPoint? {
-        return panGestureRecognizer?.location(in:view)
+        return panGestureRecognizer.location(in:view)
     }
     
     fileprivate func updateContentOffset(to offset: CGPoint) {
@@ -85,7 +97,7 @@ public class NonScrollView: UIScrollView {
     public init(frame: CGRect = .zero, layout: NonScrollViewLayout) {
         self.layout = layout
         super.init(frame: frame)
-        recognizer.panGestureRecognizer = panGestureRecognizer
+        recognizer.scrollView = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -95,7 +107,7 @@ public class NonScrollView: UIScrollView {
     // MARK: Layout
     
     private var frameOfReference: NonScrollViewLayout.FrameOfReference {
-        return .init(previousOffset: recognizer.lastContentOffset, offset: contentOffset, size: bounds.size)
+        return .init(previousOffset: recognizer.lastContentOffset, offset: contentOffset, size: frame.size)
     }
     
     override public func layoutSubviews() {

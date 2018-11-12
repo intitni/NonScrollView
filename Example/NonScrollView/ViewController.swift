@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         
         let v = HeaderSegmentController(
             headerVC: header,
-            defaultHeaderHeight: 150,
+            defaultHeaderHeight: 250,
             segmentControl: SegmentControl(frame: .zero),
             pages: [vc1, vc2, vc3, vc4])
         
