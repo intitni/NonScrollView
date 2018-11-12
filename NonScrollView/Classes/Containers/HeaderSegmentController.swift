@@ -211,8 +211,11 @@ open class HeaderSegmentController: UIViewController {
                 
             case (.none, _):
                 
-                let newFrame = self.segmentControllerFrame - rec.translation
-                self.segmentControllerFrame = CGRect(origin: .init(x: 0, y: max(newFrame.origin.y, 0)), size: .zero)
+                self.segmentControllerFrame = CGRect(
+                    origin: CGPoint(
+                        x: 0,
+                        y: max(self.defaultHeaderHeight - rec.contentOffset.y, 0)),
+                    size: .zero)
                 
             }
         }
