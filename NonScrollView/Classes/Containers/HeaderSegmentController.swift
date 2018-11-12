@@ -45,10 +45,7 @@ open class HeaderSegmentController: UIViewController {
     
     public var defaultHeaderHeight: CGFloat { didSet { invalidateLayout() } }
     
-    private var cachedContentOffset = [Int: CGPoint]()
-    private var cachedGap = [Int: CGFloat]()
-    
-    private var segmentControllerFrame = CGRect.zero
+    private var segmentControllerOrigin = CGPoint.zero
     private var touchBeginsInSegmentController = false
     private var contentHeightObservation: NSKeyValueObservation?
     
@@ -91,7 +88,7 @@ open class HeaderSegmentController: UIViewController {
         addChild(headerVC)
         addChild(segmentController)
         segmentController.delegate = self
-        segmentControllerFrame = CGRect(x: 0, y: self.defaultHeaderHeight, width: 0, height: 0)
+        segmentControllerOrigin = .init(x: 0, y: self.defaultHeaderHeight)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -111,11 +108,11 @@ open class HeaderSegmentController: UIViewController {
                 viewPlacers: [
                     .init(view: headerVC.view, updateViewAndGenerateFrame: {
                         [unowned self] ref in
-                        return .zero + CGSize(width: ref.size.width, height: self.segmentControllerFrame.origin.y)
+                        return .zero + CGSize(width: ref.size.width, height: self.segmentControllerOrigin.y)
                     }),
                     .init(view: segmentController.view, updateViewAndGenerateFrame: {
                         [unowned self] ref in
-                        return self.segmentControllerFrame + ref.size
+                        return .init(origin: self.segmentControllerOrigin, size: ref.size)
                     }),
                 ],
                 contentSizeGenerator: {
@@ -151,7 +148,7 @@ open class HeaderSegmentController: UIViewController {
             guard translationY != 0 else { return }
             let pullDown = translationY < 0
             let pullUp = translationY > 0
-            let hitTop = self.segmentControllerFrame.origin.y <= 0
+            let hitTop = self.segmentControllerOrigin.y <= 0
 
             if case .began = rec.touchState,
                 let location = rec.touchLocation(in: self.scrollView) {
@@ -167,11 +164,11 @@ open class HeaderSegmentController: UIViewController {
                         let newOffset = scrollable.contentOffset + rec.translation
                         scrollable.contentOffset = CGPoint(x: 0, y: max(newOffset.y, 0))
                         if newOffset.y < 0 { // over scroll
-                            self.segmentControllerFrame -= CGPoint(x: 0, y: newOffset.y)
+                            self.segmentControllerOrigin -= CGPoint(x: 0, y: newOffset.y)
                         }
                     } else {
-                        let newFrame = self.segmentControllerFrame - rec.translation
-                        self.segmentControllerFrame = CGRect(origin: .init(x: 0, y: max(newFrame.origin.y, 0)), size: .zero)
+                        let newOrigin = self.segmentControllerOrigin - rec.translation
+                        self.segmentControllerOrigin = .init(x: 0, y: max(newOrigin.y, 0))
                     }
                     
                 } else {
@@ -182,9 +179,9 @@ open class HeaderSegmentController: UIViewController {
              case (.some(let scrollable), false):
                 
                 if pullUp {
-                    let newFrame = self.segmentControllerFrame - rec.translation
-                    let y = newFrame.origin.y
-                    self.segmentControllerFrame = CGRect(origin: .init(x: 0, y: max(y, 0)), size: .zero)
+                    let newOrigin = self.segmentControllerOrigin - rec.translation
+                    let y = newOrigin.y
+                    self.segmentControllerOrigin = .init(x: 0, y: max(y, 0))
                     if y < 0 { // over scroll
                         scrollable.contentOffset -= CGPoint(x: 0, y: y)
                     }
@@ -194,16 +191,16 @@ open class HeaderSegmentController: UIViewController {
                             let newOffset = scrollable.contentOffset + rec.translation
                             scrollable.contentOffset = CGPoint(x: 0, y: max(newOffset.y, 0))
                             if newOffset.y < 0 { // over scroll
-                                self.segmentControllerFrame -= CGPoint(x: 0, y: newOffset.y)
+                                self.segmentControllerOrigin -= CGPoint(x: 0, y: newOffset.y)
                             }
                         } else {
-                            let newFrame = self.segmentControllerFrame - rec.translation
-                            self.segmentControllerFrame = CGRect(origin: .init(x: 0, y: newFrame.origin.y), size: .zero)
+                            let newOrigin = self.segmentControllerOrigin - rec.translation
+                            self.segmentControllerOrigin = .init(x: 0, y: newOrigin.y)
                         }
                         
                     } else {
-                        let newFrame = self.segmentControllerFrame - rec.translation
-                        self.segmentControllerFrame = CGRect(origin: .init(x: 0, y: max(newFrame.origin.y, 0)), size: .zero)
+                        let newOrigin = self.segmentControllerOrigin - rec.translation
+                        self.segmentControllerOrigin = .init(x: 0, y: max(newOrigin.y, 0))
                     }
                     
                     self.calibrateContentInset()
@@ -211,11 +208,7 @@ open class HeaderSegmentController: UIViewController {
                 
             case (.none, _):
                 
-                self.segmentControllerFrame = CGRect(
-                    origin: CGPoint(
-                        x: 0,
-                        y: max(self.defaultHeaderHeight - rec.contentOffset.y, 0)),
-                    size: .zero)
+                self.segmentControllerOrigin = .init(x: 0, y: max(self.defaultHeaderHeight - rec.contentOffset.y, 0))
                 
             }
         }
@@ -230,7 +223,7 @@ open class HeaderSegmentController: UIViewController {
 
     @discardableResult
     private func calibrateContentOffset() -> CGPoint {
-        let segmentOffsetY = defaultHeaderHeight - segmentControllerFrame.origin.y
+        let segmentOffsetY = defaultHeaderHeight - segmentControllerOrigin.y
         let scrollableContentOffsetY = currentScrollView?.contentOffset.y ?? 0
         let offset = CGPoint(x: 0, y: segmentOffsetY + scrollableContentOffsetY)
         scrollView.recognizer.lastContentOffset = offset
@@ -240,7 +233,7 @@ open class HeaderSegmentController: UIViewController {
     }
     
     private func calibrateContentInset() {
-        let hitTop = self.segmentControllerFrame.origin.y <= 0
+        let hitTop = self.segmentControllerOrigin.y <= 0
         let bottom = scrollView.contentInset.bottom
         let new = UIEdgeInsets(top: hitTop ? 0 : -(currentScrollView?.contentOffset.y ?? 0),
                                left: 0, bottom: bottom, right: 0)
@@ -261,7 +254,6 @@ extension HeaderSegmentController: SegmentControllerDelegate {
     }
     
     open func segmentControllerWillScroll(fromPageIndex pageIndex: Int) {
-        cachedContentOffset[pageIndex] = scrollView.contentOffset
-        cachedGap[pageIndex] = segmentControllerFrame.origin.y
+        
     }
 }
