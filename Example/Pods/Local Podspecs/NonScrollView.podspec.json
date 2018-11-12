@@ -15,8 +15,21 @@
     "git": "https://github.com/int123c/NonScrollView.git",
     "tag": "0.1.0"
   },
+  "social_media_url": "https://twitter.com/int123c",
   "platforms": {
     "ios": "9.0"
   },
-  "source_files": "NonScrollView/Classes/**/*"
+  "swift_version": "4.2",
+  "source_files": "NonScrollView/Classes/**/*",
+  "default_subspecs": "Core",
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": "NonScrollView/Classes/Core/**/*"
+    },
+    {
+      "name": "Containers",
+      "source_files": "NonScrollView/Classes/Container/**/*"
+    }
+  ]
 }

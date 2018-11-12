@@ -5,14 +5,16 @@ import UIKit
 /// Treats `NonScrollView`'s `contentOffset` as touches.
 public final class NonScrollViewScrollRecognizer {
     public var onChange: ((NonScrollViewScrollRecognizer)->Void)? = nil
-    public var state: UIGestureRecognizer.State = .possible
+    public var touchState: UIGestureRecognizer.State { return panGestureRecognizer?.state ?? .possible }
     public var lastContentOffset: CGPoint = .zero
     public var contentOffset: CGPoint = .zero
-    public var touches: Set<UITouch>?
     public var translation: CGPoint { return contentOffset - lastContentOffset }
     
+    weak var panGestureRecognizer: UIPanGestureRecognizer? = nil
+    weak var scrollView: NonScrollView? = nil
+    
     public func touchLocation(in view: UIView?) -> CGPoint? {
-        return touches?.first?.location(in: view)
+        return panGestureRecognizer?.location(in:view)
     }
     
     fileprivate func updateContentOffset(to offset: CGPoint) {
@@ -83,6 +85,7 @@ public class NonScrollView: UIScrollView {
     public init(frame: CGRect = .zero, layout: NonScrollViewLayout) {
         self.layout = layout
         super.init(frame: frame)
+        recognizer.panGestureRecognizer = panGestureRecognizer
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -112,40 +115,5 @@ public class NonScrollView: UIScrollView {
             placer.view.frame = frame
         }
     }
-    
-    // MARK: Recognizer Update
-    
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        recognizer.state = .began
-        recognizer.touches = touches
-        super.touchesBegan(touches, with: event)
-    }
-    
-    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        recognizer.state = .changed
-        recognizer.touches = touches
-        super.touchesMoved(touches, with: event)
-    }
-    
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        recognizer.state = .ended
-        recognizer.touches = touches
-        super.touchesEnded(touches, with: event)
-        resetRecognizerStateInNextRunLoop()
-    }
-    
-    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        recognizer.state = .cancelled
-        recognizer.touches = touches
-        super.touchesCancelled(touches, with: event)
-        resetRecognizerStateInNextRunLoop()
-    }
-    
-    private func resetRecognizerStateInNextRunLoop() {
-        DispatchQueue.main.async() {
-            guard [.cancelled, .ended, .failed].contains(self.recognizer.state) else { return }
-            self.recognizer.touches = nil
-            self.recognizer.state = .possible
-        }
-    }
 }
+

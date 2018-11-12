@@ -1,7 +1,13 @@
 import UIKit
 import NonScrollView
 
+
+
 class ViewController: UIViewController {
+    
+    var obs: NSKeyValueObservation?
+    
+    deinit { obs?.invalidate() }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +25,21 @@ class ViewController: UIViewController {
         vc4.view.backgroundColor = .orange
         let header = UIViewController()
         header.view.backgroundColor = .purple
+        let headerLabel: UILabel = {
+            let it = UILabel()
+            header.view.addSubview(it)
+            it.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                it.centerXAnchor.constraint(equalTo: header.view.centerXAnchor),
+                it.bottomAnchor.constraint(equalTo: header.view.bottomAnchor, constant: -10)
+                ])
+            return it
+        }()
+        
+        obs = header.view.observe(\.frame) { view, _ in
+            headerLabel.text = "\(view.frame.height)"
+        }
+        
         let v = HeaderSegmentController(
             headerVC: header,
             defaultHeaderHeight: 150,

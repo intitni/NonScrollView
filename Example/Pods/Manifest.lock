@@ -1,16 +1,20 @@
 PODS:
-  - NonScrollView (0.1.0)
+  - NonScrollView (0.1.0):
+    - NonScrollView/Core (= 0.1.0)
+  - NonScrollView/Containers (0.1.0)
+  - NonScrollView/Core (0.1.0)
 
 DEPENDENCIES:
   - NonScrollView (from `../`)
+  - NonScrollView/Containers (from `../`)
 
 EXTERNAL SOURCES:
   NonScrollView:
     :path: "../"
 
 SPEC CHECKSUMS:
-  NonScrollView: bf9c2f933df8e76c7aa1a30f457d003b5cfd0cd5
+  NonScrollView: 2d395f69237c867d77933a04227c4e8e7f093bbd
 
-PODFILE CHECKSUM: ef01f762147a6ecb673300a052ab55643bafc450
+PODFILE CHECKSUM: 09cdcd487b3fadf011daf429a54282d5f99c05cb
 
 COCOAPODS: 1.5.3

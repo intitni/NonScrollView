@@ -7,29 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07ACC014825DBA0DEC15078DEA88610F /* NonScrollView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 448119DE770DC1DFDFB365A918AE146B /* NonScrollView-dummy.m */; };
-		0B87DE03B48C78E1679C90EFEDBE165D /* Pods-NonScrollView_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5830997963080A3BBF94B21AA2573341 /* Pods-NonScrollView_Tests-dummy.m */; };
-		2C3F097C53175E21E9C8F4915B423027 /* NonScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2154269DD385FB21D84C99306E856C4A /* NonScrollView.swift */; };
-		328064BD71F7682473CE8FD1137EB842 /* HeaderSegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC198808CB264EFE75D6CEE7EFC070FA /* HeaderSegmentController.swift */; };
-		5B7DB3F46D1B1E4040A4307647768ADA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D28ED29BE11EF7DC86E97547E59E8CD /* Extensions.swift */; };
-		66090C53E830B218806E4E6718FABEAC /* Pods-NonScrollView_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F0F1241CDE19404B5ED8B87E58C6B6 /* Pods-NonScrollView_Example-dummy.m */; };
+		209293307FAF6752BFDB3B7FBCF9D084 /* NonScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB9678B16585DD9CA81B44C524E275C /* NonScrollView.swift */; };
+		5AF405A067CD00A18ACA26CF8228FF29 /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09A860F8521683800A18B14A0A58C3B /* SegmentController.swift */; };
+		66090C53E830B218806E4E6718FABEAC /* Pods-NonScrollView_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DD067EC8D91017EF9FEBEB16BC10E9FB /* Pods-NonScrollView_Example-dummy.m */; };
 		690931A891392CA505A745D4FE0FC86E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
-		866D4371920CCC03E60E852A3941A5F0 /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3C6053684265E390FB8B435E924938 /* SegmentController.swift */; };
-		8892C79ADE24894180490E241518EB86 /* Pods-NonScrollView_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A49E0F34AD72E1EF3C47234EAD7003B /* Pods-NonScrollView_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9664BD64A9B1139D4BC906F130753AB6 /* Pods-NonScrollView_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 81583668122B9A1A3E907007169B4064 /* Pods-NonScrollView_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7D4C37181CF8931DCC4400F859C54638 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84EBD71EB9A4373A02222D8184DC28C /* Extensions.swift */; };
+		8892C79ADE24894180490E241518EB86 /* Pods-NonScrollView_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BF9F824DA70630442658029F849FDFB4 /* Pods-NonScrollView_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893321173A1B98AEEE8CB2100CFE4298 /* HeaderSegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1BDBE3AA6043FC1C13D6E99D890B42 /* HeaderSegmentController.swift */; };
 		AC3AB831C7DF8FE55C8537FAD3391B39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
-		ED899CAA84FC434F7CD4180C24256826 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
-		F15D5CACAAFB16E4072C5F3C6EECC6A6 /* NonScrollView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 19C06E34222AB30B37AE88CE2FE71961 /* NonScrollView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BB8188ADCF1E5A4A33ED29AFF0876DA8 /* NonScrollView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F94FC856AE394233AC0F7AFFCF84978D /* NonScrollView-dummy.m */; };
+		F15D5CACAAFB16E4072C5F3C6EECC6A6 /* NonScrollView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = ED58E0FC6EE3A4C32FA795E782992AD8 /* NonScrollView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		185E484C9D36B348032364BE3ED8B785 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 036F4174BC96F6936A2C4906FAC06871;
-			remoteInfo = "Pods-NonScrollView_Example";
-		};
 		841A297ED893006FB55F9B6CCEFF575E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -40,44 +30,33 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01A74FEAC83F965E5975784F05FBFEED /* Pods-NonScrollView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NonScrollView_Example.release.xcconfig"; sourceTree = "<group>"; };
-		0323B9A66ACBF31825B1F00B0AB13402 /* Pods-NonScrollView_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NonScrollView_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		05D0971099D6ED1A7972B9114720AD0C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		07C40790D6D25F31661F2135CDB0412C /* NonScrollView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = NonScrollView.modulemap; sourceTree = "<group>"; };
-		092484DDACFCE8BB062E18B0B266B70D /* NonScrollView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NonScrollView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		17D1EECEA38B0DDF6A8A051B0B735810 /* Pods-NonScrollView_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NonScrollView_Tests-resources.sh"; sourceTree = "<group>"; };
-		19C06E34222AB30B37AE88CE2FE71961 /* NonScrollView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NonScrollView-umbrella.h"; sourceTree = "<group>"; };
-		1DFECF3A5D8657114F955FAFAE20E706 /* Pods-NonScrollView_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NonScrollView_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		2154269DD385FB21D84C99306E856C4A /* NonScrollView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NonScrollView.swift; path = NonScrollView/Classes/NonScrollView.swift; sourceTree = "<group>"; };
-		24290974956FB0EF0545EDD161681BFF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2637C5D84529164EE051E7E2FFD1F275 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		2F849A98557FB567F6BBA2D29406F4A3 /* Pods-NonScrollView_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-NonScrollView_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		32F0F1241CDE19404B5ED8B87E58C6B6 /* Pods-NonScrollView_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-NonScrollView_Example-dummy.m"; sourceTree = "<group>"; };
-		343809866D24F5F3CEE9047A727535DB /* Pods-NonScrollView_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-NonScrollView_Example.modulemap"; sourceTree = "<group>"; };
-		3C3C6053684265E390FB8B435E924938 /* SegmentController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SegmentController.swift; path = NonScrollView/Classes/SegmentController.swift; sourceTree = "<group>"; };
-		448119DE770DC1DFDFB365A918AE146B /* NonScrollView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NonScrollView-dummy.m"; sourceTree = "<group>"; };
-		5356FA176B1D5B46AC9EBCF144BCDBE6 /* Pods_NonScrollView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NonScrollView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		54359592C7A28BB5B894B4EF50F0CEF5 /* Pods-NonScrollView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NonScrollView_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		5830997963080A3BBF94B21AA2573341 /* Pods-NonScrollView_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-NonScrollView_Tests-dummy.m"; sourceTree = "<group>"; };
+		0834DCBEA2A47F624E83BC68B2AC18F0 /* Pods-NonScrollView_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-NonScrollView_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		106DB7A25B308517523B63A38636A2D8 /* Pods-NonScrollView_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NonScrollView_Example-frameworks.sh"; sourceTree = "<group>"; };
+		2B3BFE61A025A565D83FFF435906D21F /* Pods-NonScrollView_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NonScrollView_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		345FE540133213DCDC5805A290AB15DC /* NonScrollView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = NonScrollView.framework; path = NonScrollView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A7B174993490FCCA0BC6621E2381C57 /* NonScrollView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = NonScrollView.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		3C721A28932FA2C62F445281AF0923AB /* Pods-NonScrollView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NonScrollView_Example.release.xcconfig"; sourceTree = "<group>"; };
+		451A16725919B8C7B05DB2BC85B7C407 /* NonScrollView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = NonScrollView.modulemap; sourceTree = "<group>"; };
+		48C08CB910DC640B08EF0DB49D4AAD8F /* Pods_NonScrollView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_NonScrollView_Example.framework; path = "Pods-NonScrollView_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C1BDBE3AA6043FC1C13D6E99D890B42 /* HeaderSegmentController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HeaderSegmentController.swift; sourceTree = "<group>"; };
 		5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		6CB00F068DE52DFD0D1061995D4D625F /* Pods-NonScrollView_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-NonScrollView_Tests.modulemap"; sourceTree = "<group>"; };
-		6D28ED29BE11EF7DC86E97547E59E8CD /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = NonScrollView/Classes/Extensions.swift; sourceTree = "<group>"; };
-		75859A0B9D9641EB9268913F88773EF9 /* NonScrollView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NonScrollView-prefix.pch"; sourceTree = "<group>"; };
-		7A49E0F34AD72E1EF3C47234EAD7003B /* Pods-NonScrollView_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-NonScrollView_Example-umbrella.h"; sourceTree = "<group>"; };
-		7C7A058783DB8455D955327BFD0A4862 /* Pods-NonScrollView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NonScrollView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		7DC5B43945A6F8CDC355CEF063DE4C2E /* Pods-NonScrollView_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NonScrollView_Example-resources.sh"; sourceTree = "<group>"; };
-		81583668122B9A1A3E907007169B4064 /* Pods-NonScrollView_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-NonScrollView_Tests-umbrella.h"; sourceTree = "<group>"; };
-		86FD6457D95B10EB10537AF77661B536 /* Pods-NonScrollView_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-NonScrollView_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A36AFC3FD5542C6609B14E3D3F6E6AF3 /* NonScrollView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = NonScrollView.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		C4E4DFE37EA01D023D6789A700461E93 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C7B15584CA5ADE265FAC57E241049C31 /* Pods-NonScrollView_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NonScrollView_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		CFAB8070E06B61388FFB3D9F439CF5EF /* NonScrollView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NonScrollView.xcconfig; sourceTree = "<group>"; };
-		EC198808CB264EFE75D6CEE7EFC070FA /* HeaderSegmentController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HeaderSegmentController.swift; path = NonScrollView/Classes/HeaderSegmentController.swift; sourceTree = "<group>"; };
-		ED9EF9F976D0ED6D8BF2C713F2C57F19 /* Pods_NonScrollView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NonScrollView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F909131FA0BB78E479D6A8B810F5752D /* Pods-NonScrollView_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NonScrollView_Example-frameworks.sh"; sourceTree = "<group>"; };
-		FFBA92F062603E1BC89241A747A42E93 /* Pods-NonScrollView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NonScrollView_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		FFD66DE0544468E99D0043637D894CF5 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6B05A426B0B09F5D0D6325EB9CF7748C /* Pods-NonScrollView_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NonScrollView_Example-resources.sh"; sourceTree = "<group>"; };
+		73CC9315CA96C2A8E3F8E3D1304B6304 /* NonScrollView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NonScrollView.xcconfig; sourceTree = "<group>"; };
+		7A6BA65A838719A9A2903E00A6D1397B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		865C8B89CA6183AF168825EFE7D10728 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		8BE43915943466083B40F2F8F33F40BD /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BD59320A65C661C2DA14792EC1DB704A /* Pods-NonScrollView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NonScrollView_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		BDB9678B16585DD9CA81B44C524E275C /* NonScrollView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NonScrollView.swift; sourceTree = "<group>"; };
+		BF9F824DA70630442658029F849FDFB4 /* Pods-NonScrollView_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-NonScrollView_Example-umbrella.h"; sourceTree = "<group>"; };
+		C09A860F8521683800A18B14A0A58C3B /* SegmentController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SegmentController.swift; sourceTree = "<group>"; };
+		C6DA467AAC037CBA0A92BA06E9844DF0 /* NonScrollView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NonScrollView-prefix.pch"; sourceTree = "<group>"; };
+		DC56644710A682E910A79DF4BABB833A /* Pods-NonScrollView_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-NonScrollView_Example.modulemap"; sourceTree = "<group>"; };
+		DD067EC8D91017EF9FEBEB16BC10E9FB /* Pods-NonScrollView_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-NonScrollView_Example-dummy.m"; sourceTree = "<group>"; };
+		ED58E0FC6EE3A4C32FA795E782992AD8 /* NonScrollView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NonScrollView-umbrella.h"; sourceTree = "<group>"; };
+		F7BA08B80795899E31031C585476946C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F84EBD71EB9A4373A02222D8184DC28C /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F94FC856AE394233AC0F7AFFCF84978D /* NonScrollView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NonScrollView-dummy.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,37 +76,51 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B9A71E36895CE08994704918053A4CCD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				ED899CAA84FC434F7CD4180C24256826 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		045365041418B1CD64E8BB3679E959D8 /* Development Pods */ = {
+		0666EBF3496AEDE8C51B4323AFEFB9DD /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				21CB3C68F1C09BA29881ACE0784BFDE2 /* NonScrollView */,
+				F7BA08B80795899E31031C585476946C /* Info.plist */,
+				451A16725919B8C7B05DB2BC85B7C407 /* NonScrollView.modulemap */,
+				73CC9315CA96C2A8E3F8E3D1304B6304 /* NonScrollView.xcconfig */,
+				F94FC856AE394233AC0F7AFFCF84978D /* NonScrollView-dummy.m */,
+				C6DA467AAC037CBA0A92BA06E9844DF0 /* NonScrollView-prefix.pch */,
+				ED58E0FC6EE3A4C32FA795E782992AD8 /* NonScrollView-umbrella.h */,
 			);
-			name = "Development Pods";
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/NonScrollView";
 			sourceTree = "<group>";
 		};
-		21CB3C68F1C09BA29881ACE0784BFDE2 /* NonScrollView */ = {
+		2726C0E1964CE727A9F603F232D8EF0B /* NonScrollView */ = {
 			isa = PBXGroup;
 			children = (
-				6D28ED29BE11EF7DC86E97547E59E8CD /* Extensions.swift */,
-				EC198808CB264EFE75D6CEE7EFC070FA /* HeaderSegmentController.swift */,
-				2154269DD385FB21D84C99306E856C4A /* NonScrollView.swift */,
-				3C3C6053684265E390FB8B435E924938 /* SegmentController.swift */,
-				A4C2A2993152DD25330D18CAF0171287 /* Pod */,
-				AD5871199F57D71A99EFB81AA5D8AA14 /* Support Files */,
+				FC54BD003E9C80C865F9C80B4269CEF0 /* Containers */,
+				2E3FCD9ADC910CBC67AC731BD138086D /* Core */,
+				F6C91ECAE204AE14CAFEA3709E162824 /* Pod */,
+				0666EBF3496AEDE8C51B4323AFEFB9DD /* Support Files */,
 			);
 			name = NonScrollView;
 			path = ../..;
+			sourceTree = "<group>";
+		};
+		2E3FCD9ADC910CBC67AC731BD138086D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				BDB9678B16585DD9CA81B44C524E275C /* NonScrollView.swift */,
+			);
+			name = Core;
+			path = NonScrollView/Classes/Core;
+			sourceTree = "<group>";
+		};
+		55F4C4F3BE52541F39F092AF04A19EFC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				345FE540133213DCDC5805A290AB15DC /* NonScrollView.framework */,
+				48C08CB910DC640B08EF0DB49D4AAD8F /* Pods_NonScrollView_Example.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		5E0D919E635D23B70123790B8308F8EF /* iOS */ = {
@@ -142,80 +135,11 @@
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				045365041418B1CD64E8BB3679E959D8 /* Development Pods */,
+				FF85B5D79CDC50F34E04688B1AC6BC0C /* Development Pods */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				BC4147C5469594016EB28232F5CA98A1 /* Products */,
-				7E3FFA925396F706DD23D9A2A047ACC5 /* Targets Support Files */,
+				55F4C4F3BE52541F39F092AF04A19EFC /* Products */,
+				F74EAD1C83B0E63286C485BCCD222BEC /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		7E3FFA925396F706DD23D9A2A047ACC5 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				84D955DAF8F1D415786EB008A9459214 /* Pods-NonScrollView_Example */,
-				87AD750759CFFC844BA3F92D4942C057 /* Pods-NonScrollView_Tests */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		84D955DAF8F1D415786EB008A9459214 /* Pods-NonScrollView_Example */ = {
-			isa = PBXGroup;
-			children = (
-				05D0971099D6ED1A7972B9114720AD0C /* Info.plist */,
-				343809866D24F5F3CEE9047A727535DB /* Pods-NonScrollView_Example.modulemap */,
-				86FD6457D95B10EB10537AF77661B536 /* Pods-NonScrollView_Example-acknowledgements.markdown */,
-				0323B9A66ACBF31825B1F00B0AB13402 /* Pods-NonScrollView_Example-acknowledgements.plist */,
-				32F0F1241CDE19404B5ED8B87E58C6B6 /* Pods-NonScrollView_Example-dummy.m */,
-				F909131FA0BB78E479D6A8B810F5752D /* Pods-NonScrollView_Example-frameworks.sh */,
-				7DC5B43945A6F8CDC355CEF063DE4C2E /* Pods-NonScrollView_Example-resources.sh */,
-				7A49E0F34AD72E1EF3C47234EAD7003B /* Pods-NonScrollView_Example-umbrella.h */,
-				54359592C7A28BB5B894B4EF50F0CEF5 /* Pods-NonScrollView_Example.debug.xcconfig */,
-				01A74FEAC83F965E5975784F05FBFEED /* Pods-NonScrollView_Example.release.xcconfig */,
-			);
-			name = "Pods-NonScrollView_Example";
-			path = "Target Support Files/Pods-NonScrollView_Example";
-			sourceTree = "<group>";
-		};
-		87AD750759CFFC844BA3F92D4942C057 /* Pods-NonScrollView_Tests */ = {
-			isa = PBXGroup;
-			children = (
-				C4E4DFE37EA01D023D6789A700461E93 /* Info.plist */,
-				6CB00F068DE52DFD0D1061995D4D625F /* Pods-NonScrollView_Tests.modulemap */,
-				2F849A98557FB567F6BBA2D29406F4A3 /* Pods-NonScrollView_Tests-acknowledgements.markdown */,
-				C7B15584CA5ADE265FAC57E241049C31 /* Pods-NonScrollView_Tests-acknowledgements.plist */,
-				5830997963080A3BBF94B21AA2573341 /* Pods-NonScrollView_Tests-dummy.m */,
-				1DFECF3A5D8657114F955FAFAE20E706 /* Pods-NonScrollView_Tests-frameworks.sh */,
-				17D1EECEA38B0DDF6A8A051B0B735810 /* Pods-NonScrollView_Tests-resources.sh */,
-				81583668122B9A1A3E907007169B4064 /* Pods-NonScrollView_Tests-umbrella.h */,
-				7C7A058783DB8455D955327BFD0A4862 /* Pods-NonScrollView_Tests.debug.xcconfig */,
-				FFBA92F062603E1BC89241A747A42E93 /* Pods-NonScrollView_Tests.release.xcconfig */,
-			);
-			name = "Pods-NonScrollView_Tests";
-			path = "Target Support Files/Pods-NonScrollView_Tests";
-			sourceTree = "<group>";
-		};
-		A4C2A2993152DD25330D18CAF0171287 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				FFD66DE0544468E99D0043637D894CF5 /* LICENSE */,
-				A36AFC3FD5542C6609B14E3D3F6E6AF3 /* NonScrollView.podspec */,
-				2637C5D84529164EE051E7E2FFD1F275 /* README.md */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		AD5871199F57D71A99EFB81AA5D8AA14 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				24290974956FB0EF0545EDD161681BFF /* Info.plist */,
-				07C40790D6D25F31661F2135CDB0412C /* NonScrollView.modulemap */,
-				CFAB8070E06B61388FFB3D9F439CF5EF /* NonScrollView.xcconfig */,
-				448119DE770DC1DFDFB365A918AE146B /* NonScrollView-dummy.m */,
-				75859A0B9D9641EB9268913F88773EF9 /* NonScrollView-prefix.pch */,
-				19C06E34222AB30B37AE88CE2FE71961 /* NonScrollView-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/NonScrollView";
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -226,14 +150,59 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BC4147C5469594016EB28232F5CA98A1 /* Products */ = {
+		D09651B7CB94D1F7C1D69E27BA5578C3 /* Pods-NonScrollView_Example */ = {
 			isa = PBXGroup;
 			children = (
-				092484DDACFCE8BB062E18B0B266B70D /* NonScrollView.framework */,
-				ED9EF9F976D0ED6D8BF2C713F2C57F19 /* Pods_NonScrollView_Example.framework */,
-				5356FA176B1D5B46AC9EBCF144BCDBE6 /* Pods_NonScrollView_Tests.framework */,
+				8BE43915943466083B40F2F8F33F40BD /* Info.plist */,
+				DC56644710A682E910A79DF4BABB833A /* Pods-NonScrollView_Example.modulemap */,
+				0834DCBEA2A47F624E83BC68B2AC18F0 /* Pods-NonScrollView_Example-acknowledgements.markdown */,
+				2B3BFE61A025A565D83FFF435906D21F /* Pods-NonScrollView_Example-acknowledgements.plist */,
+				DD067EC8D91017EF9FEBEB16BC10E9FB /* Pods-NonScrollView_Example-dummy.m */,
+				106DB7A25B308517523B63A38636A2D8 /* Pods-NonScrollView_Example-frameworks.sh */,
+				6B05A426B0B09F5D0D6325EB9CF7748C /* Pods-NonScrollView_Example-resources.sh */,
+				BF9F824DA70630442658029F849FDFB4 /* Pods-NonScrollView_Example-umbrella.h */,
+				BD59320A65C661C2DA14792EC1DB704A /* Pods-NonScrollView_Example.debug.xcconfig */,
+				3C721A28932FA2C62F445281AF0923AB /* Pods-NonScrollView_Example.release.xcconfig */,
 			);
-			name = Products;
+			name = "Pods-NonScrollView_Example";
+			path = "Target Support Files/Pods-NonScrollView_Example";
+			sourceTree = "<group>";
+		};
+		F6C91ECAE204AE14CAFEA3709E162824 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				865C8B89CA6183AF168825EFE7D10728 /* LICENSE */,
+				3A7B174993490FCCA0BC6621E2381C57 /* NonScrollView.podspec */,
+				7A6BA65A838719A9A2903E00A6D1397B /* README.md */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		F74EAD1C83B0E63286C485BCCD222BEC /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				D09651B7CB94D1F7C1D69E27BA5578C3 /* Pods-NonScrollView_Example */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		FC54BD003E9C80C865F9C80B4269CEF0 /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				F84EBD71EB9A4373A02222D8184DC28C /* Extensions.swift */,
+				4C1BDBE3AA6043FC1C13D6E99D890B42 /* HeaderSegmentController.swift */,
+				C09A860F8521683800A18B14A0A58C3B /* SegmentController.swift */,
+			);
+			name = Containers;
+			path = NonScrollView/Classes/Containers;
+			sourceTree = "<group>";
+		};
+		FF85B5D79CDC50F34E04688B1AC6BC0C /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2726C0E1964CE727A9F603F232D8EF0B /* NonScrollView */,
+			);
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,14 +221,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8892C79ADE24894180490E241518EB86 /* Pods-NonScrollView_Example-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		563A198018AE0732DFDF7F44D1FBA6B5 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9664BD64A9B1139D4BC906F130753AB6 /* Pods-NonScrollView_Tests-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +243,7 @@
 			);
 			name = "Pods-NonScrollView_Example";
 			productName = "Pods-NonScrollView_Example";
-			productReference = ED9EF9F976D0ED6D8BF2C713F2C57F19 /* Pods_NonScrollView_Example.framework */;
+			productReference = 48C08CB910DC640B08EF0DB49D4AAD8F /* Pods_NonScrollView_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		422043B0071817ED92650FD8D5E457CB /* NonScrollView */ = {
@@ -290,7 +251,7 @@
 			buildConfigurationList = 77D5906C86D8FCED9CD5D93ED6A87228 /* Build configuration list for PBXNativeTarget "NonScrollView" */;
 			buildPhases = (
 				10D98A88E1FA19B1523F184874136EA7 /* Headers */,
-				9BBD55D98F742B9B45AB5BB301C4B897 /* Sources */,
+				157EA8AB3A7DA27259A193D7BDD47762 /* Sources */,
 				461A5D70A3C84811314C538E5DF58354 /* Frameworks */,
 				C9BCBCA4EC0529D7B82B4082250A6015 /* Resources */,
 			);
@@ -300,26 +261,7 @@
 			);
 			name = NonScrollView;
 			productName = NonScrollView;
-			productReference = 092484DDACFCE8BB062E18B0B266B70D /* NonScrollView.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		734CFE3ADE157AB90B71EF090C8D5483 /* Pods-NonScrollView_Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 337391839AE9BDF05D5711C0D86E8A53 /* Build configuration list for PBXNativeTarget "Pods-NonScrollView_Tests" */;
-			buildPhases = (
-				563A198018AE0732DFDF7F44D1FBA6B5 /* Headers */,
-				2CA4CB032BFB8D81958EA8BBE1B2C9EA /* Sources */,
-				B9A71E36895CE08994704918053A4CCD /* Frameworks */,
-				0BC4662F6A607BF9CDD062B5DFE0351B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				34A76DF173E8D23E87B619430913C3CD /* PBXTargetDependency */,
-			);
-			name = "Pods-NonScrollView_Tests";
-			productName = "Pods-NonScrollView_Tests";
-			productReference = 5356FA176B1D5B46AC9EBCF144BCDBE6 /* Pods_NonScrollView_Tests.framework */;
+			productReference = 345FE540133213DCDC5805A290AB15DC /* NonScrollView.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -329,7 +271,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 0930;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -339,25 +281,17 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = BC4147C5469594016EB28232F5CA98A1 /* Products */;
+			productRefGroup = 55F4C4F3BE52541F39F092AF04A19EFC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				422043B0071817ED92650FD8D5E457CB /* NonScrollView */,
 				036F4174BC96F6936A2C4906FAC06871 /* Pods-NonScrollView_Example */,
-				734CFE3ADE157AB90B71EF090C8D5483 /* Pods-NonScrollView_Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0BC4662F6A607BF9CDD062B5DFE0351B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		61FF3D36B84233C2DCC138BF8530ACCE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -375,23 +309,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2CA4CB032BFB8D81958EA8BBE1B2C9EA /* Sources */ = {
+		157EA8AB3A7DA27259A193D7BDD47762 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B87DE03B48C78E1679C90EFEDBE165D /* Pods-NonScrollView_Tests-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9BBD55D98F742B9B45AB5BB301C4B897 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5B7DB3F46D1B1E4040A4307647768ADA /* Extensions.swift in Sources */,
-				328064BD71F7682473CE8FD1137EB842 /* HeaderSegmentController.swift in Sources */,
-				07ACC014825DBA0DEC15078DEA88610F /* NonScrollView-dummy.m in Sources */,
-				2C3F097C53175E21E9C8F4915B423027 /* NonScrollView.swift in Sources */,
-				866D4371920CCC03E60E852A3941A5F0 /* SegmentController.swift in Sources */,
+				7D4C37181CF8931DCC4400F859C54638 /* Extensions.swift in Sources */,
+				893321173A1B98AEEE8CB2100CFE4298 /* HeaderSegmentController.swift in Sources */,
+				BB8188ADCF1E5A4A33ED29AFF0876DA8 /* NonScrollView-dummy.m in Sources */,
+				209293307FAF6752BFDB3B7FBCF9D084 /* NonScrollView.swift in Sources */,
+				5AF405A067CD00A18ACA26CF8228FF29 /* SegmentController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,12 +332,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		34A76DF173E8D23E87B619430913C3CD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-NonScrollView_Example";
-			target = 036F4174BC96F6936A2C4906FAC06871 /* Pods-NonScrollView_Example */;
-			targetProxy = 185E484C9D36B348032364BE3ED8B785 /* PBXContainerItemProxy */;
-		};
 		B4EA4E20269AE8896DD94F231F4CAD2A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = NonScrollView;
@@ -421,76 +341,9 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0A63A3F7854B4C78E0A22A548543AF0C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7C7A058783DB8455D955327BFD0A4862 /* Pods-NonScrollView_Tests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-NonScrollView_Tests/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-NonScrollView_Tests/Pods-NonScrollView_Tests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		43364C97C016A958884709C4623E764E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FFBA92F062603E1BC89241A747A42E93 /* Pods-NonScrollView_Tests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-NonScrollView_Tests/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-NonScrollView_Tests/Pods-NonScrollView_Tests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		483E747FDF773567DA1A96B4F21B0F96 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 01A74FEAC83F965E5975784F05FBFEED /* Pods-NonScrollView_Example.release.xcconfig */;
+			baseConfigurationReference = 3C721A28932FA2C62F445281AF0923AB /* Pods-NonScrollView_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -515,7 +368,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -525,7 +379,7 @@
 		};
 		4E88FB9B5E8B2E147A618D2B2B81D633 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 54359592C7A28BB5B894B4EF50F0CEF5 /* Pods-NonScrollView_Example.debug.xcconfig */;
+			baseConfigurationReference = BD59320A65C661C2DA14792EC1DB704A /* Pods-NonScrollView_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -613,14 +467,13 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
 		};
 		7387EE9C059E548104A42F6AD3D8BCFC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CFAB8070E06B61388FFB3D9F439CF5EF /* NonScrollView.xcconfig */;
+			baseConfigurationReference = 73CC9315CA96C2A8E3F8E3D1304B6304 /* NonScrollView.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -642,7 +495,8 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -653,7 +507,7 @@
 		};
 		B1DD49745646029F1D519BE0C4FC7A8E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CFAB8070E06B61388FFB3D9F439CF5EF /* NonScrollView.xcconfig */;
+			baseConfigurationReference = 73CC9315CA96C2A8E3F8E3D1304B6304 /* NonScrollView.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -764,15 +618,6 @@
 			buildConfigurations = (
 				BEFDB93BF207328A04F1220475D02C3B /* Debug */,
 				56A05ADD3BABDA1B56D1F979845809B1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		337391839AE9BDF05D5711C0D86E8A53 /* Build configuration list for PBXNativeTarget "Pods-NonScrollView_Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0A63A3F7854B4C78E0A22A548543AF0C /* Debug */,
-				43364C97C016A958884709C4623E764E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
