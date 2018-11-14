@@ -30,11 +30,7 @@ extension SegmentController {
 ///
 /// You have to provide your own implementation of segment control widget that conforms to `SegmentControlType`.
 ///
-/// - important: If you have a scrollable content inside `SegmentController` pages
-/// that would interfere with the main scroll view provided by this class,
-/// you should conform you page class to `HeaderSegmentControllerSegmentPageHasScrollView`
-/// and return that specific scroll view in `segmentPageEmbedScrollView`.
-/// `HeaderSegmentController` will take over and control it's scroll behaviour.
+/// - important: If you have a scrollable content inside `SegmentController` pages that would interfere with the main scroll view provided by this class, you should conform you page class to `HeaderSegmentControllerSegmentPageHasScrollView` and return that specific scroll view in `segmentPageEmbedScrollView`. `HeaderSegmentController` will take over and control it's scroll behaviour.
 ///
 open class HeaderSegmentController: UIViewController {
     
@@ -106,12 +102,10 @@ open class HeaderSegmentController: UIViewController {
         scrollView = {
             let layout = NonScrollViewLayout(
                 viewPlacers: [
-                    .init(view: headerVC.view, updateViewAndGenerateFrame: {
-                        [unowned self] ref in
+                    .init(view: headerVC.view, generateFrame: { [unowned self] ref in
                         return .zero + CGSize(width: ref.size.width, height: self.segmentControllerOrigin.y)
                     }),
-                    .init(view: segmentController.view, updateViewAndGenerateFrame: {
-                        [unowned self] ref in
+                    .init(view: segmentController.view, generateFrame: { [unowned self] ref in
                         return .init(origin: self.segmentControllerOrigin, size: ref.size)
                     }),
                 ],

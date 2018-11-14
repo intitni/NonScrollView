@@ -50,15 +50,18 @@ public final class NonScrollViewLayout {
     /// Provides a view and the way to layout it, in frame of reference in coordinate of visible part of `NonScrollView`.
     public class ViewPlacer {
         public let view: UIView
-        public let updateViewAndGenerateViewFrame: (FrameOfReference) -> CGRect
-        
+        public let generateViewFrame: (FrameOfReference) -> CGRect
+        public let updateView: ( (FrameOfReference) -> Void )?
         /// Initialize a `ViewPlacer`.
         ///
         /// - parameter view: The view.
         /// - parameter updateViewAndGenerateFrame: Should return a frame in coordinate of visible part of `NonScrollView`.
-        public init(view: UIView, updateViewAndGenerateFrame: @escaping (FrameOfReference) -> CGRect) {
+        public init(view: UIView,
+                    generateFrame: @escaping (FrameOfReference) -> CGRect,
+                    updateView: ((FrameOfReference) -> Void)? = nil) {
             self.view = view
-            self.updateViewAndGenerateViewFrame = updateViewAndGenerateFrame
+            self.generateViewFrame = generateFrame
+            self.updateView = updateView
         }
     }
     
@@ -121,10 +124,11 @@ public class NonScrollView: UIScrollView {
                 placer.view.removeFromSuperview()
                 addSubview(placer.view)
             }
-            let frameInVisible = placer.updateViewAndGenerateViewFrame(frameOfReference)
+            let frameInVisible = placer.generateViewFrame(frameOfReference)
             let frame = CGRect(origin: frameInVisible.origin + contentOffset,
                                size: frameInVisible.size)
             placer.view.frame = frame
+            placer.updateView?(frameOfReference)
         }
     }
 }
