@@ -93,8 +93,8 @@ public class NonScrollView: UIScrollView {
     }
     
     public func invalidateLayout() {
-        layoutMappedViews()
         contentSize = layout.generateContentSize(frameOfReference)
+        layoutMappedViews()
     }
 
     public init(frame: CGRect = .zero, layout: NonScrollViewLayout) {

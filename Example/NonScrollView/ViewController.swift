@@ -96,7 +96,7 @@ class ViewController: UIViewController {
 }
 
 class TableViewController: UITableViewController {
-    let numberOfItems: Int
+    var numberOfItems: Int
     
     init(numberOfItems: Int) {
         self.numberOfItems = numberOfItems
@@ -121,6 +121,11 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(indexPath.row % 4 + 2) * 30
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        numberOfItems += [-1, 1].randomElement()! * (3...5).randomElement()!
+        tableView.reloadData()
     }
 }
 

@@ -56,25 +56,22 @@ open class ScrollViewChainController: UIViewController {
                             let y = self.chainAHeight - offsetY - ref.size.height
                             return CGRect(origin: .init(x: 0, y: min(y, 0)), size: ref.size)
                         }, updateView: { [unowned self] ref in
-                            self.chainA.contentOffset = CGPoint(x: 0,
-                                                                y: min(ref.offset.y,
-                                                                       self.chainAHeight - ref.size.height))
+                            self.chainA.contentOffset = CGPoint(
+                                x: 0,
+                                y: min(ref.offset.y, self.chainAHeight - ref.size.height))
                         }),
                     .init(view: chainB.view,
                           generateFrame: { [unowned self] ref in
                             let offsetY = ref.offset.y
                         
                             if offsetY > self.chainAHeight {
-                                return CGRect(
-                                    origin: .init(x: 0, y: max(self.chainAHeight - offsetY, 0)),
-                                    size: ref.size)
+                                return CGRect(origin: .init(x: 0, y: max(self.chainAHeight - offsetY, 0)),
+                                              size: ref.size)
                             } else if offsetY > self.chainAHeight - ref.size.height {
-                                return CGRect(
-                                    origin: .init(x: 0, y: max(self.chainAHeight - offsetY, 0)),
-                                    size: ref.size)
-                            } else {
-                                return CGRect(origin: .init(x: 0, y: ref.size.height), size: ref.size)
+                                return CGRect(origin: .init(x: 0, y: max(self.chainAHeight - offsetY, 0)),
+                                              size: ref.size)
                             }
+                            return CGRect(origin: .init(x: 0, y: ref.size.height), size: ref.size)
                         }, updateView: { [unowned self] ref in
                             let offsetY = ref.offset.y
                             
