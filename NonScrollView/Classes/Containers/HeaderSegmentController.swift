@@ -126,6 +126,7 @@ open class HeaderSegmentController: UIViewController {
                 it.contentInsetAdjustmentBehavior = .never
             }
             it.alwaysBounceVertical = true
+            it.delegate = self
             it.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(it)
             NSLayoutConstraint.activate([
@@ -144,7 +145,7 @@ open class HeaderSegmentController: UIViewController {
             enum PullDirection {
                 case pullUp, pullDown
             }
-            
+
             let translationY = rec.translation.y
             guard translationY != 0 else { return }
             let hitTop = self.segmentControllerOrigin.y <= 0
@@ -168,6 +169,7 @@ open class HeaderSegmentController: UIViewController {
                     scrollable.contentOffset = CGPoint(x: 0, y: max(newOffset.y, 0))
                     if newOffset.y < 0 { // over scroll
                         self.segmentControllerOrigin -= CGPoint(x: 0, y: newOffset.y)
+                        self.calibrateContentOffset()
                     }
                 } else {
                     let newOrigin = self.segmentControllerOrigin - rec.translation
@@ -182,6 +184,7 @@ open class HeaderSegmentController: UIViewController {
                 self.segmentControllerOrigin = .init(x: 0, y: max(y, 0))
                 if y < 0 { // over scroll
                     scrollable.contentOffset -= CGPoint(x: 0, y: y)
+                    self.calibrateContentOffset()
                 }
                 
             case (.some(let scrollable), false, .pullDown):
@@ -192,6 +195,7 @@ open class HeaderSegmentController: UIViewController {
                         scrollable.contentOffset = CGPoint(x: 0, y: max(newOffset.y, 0))
                         if newOffset.y < 0 { // over scroll
                             self.segmentControllerOrigin -= CGPoint(x: 0, y: newOffset.y)
+                            self.calibrateContentOffset()
                         }
                     } else {
                         let newOrigin = self.segmentControllerOrigin - rec.translation
@@ -214,37 +218,10 @@ open class HeaderSegmentController: UIViewController {
     
     private func observeCurrentScrollViewContentHeightIfExists() {
         contentHeightObservation?.invalidate()
-        contentHeightObservation = currentScrollView?.observe(\.contentSize) { [unowned self] s, _ in
-            let offset = self.calibrateContentOffset()
-            print(
-                """
-                ========
-                ------ (before calibration)
-                contentSize      \(s.contentSize.height)
-                scrollableOffset \(s.contentOffset.y)
-                contentOffset    \(self.scrollView.contentOffset.y)
-                calibratedOffset \(offset.y) | deviation \(offset.y - self.scrollView.contentOffset.y)
-                """)
-            self.scrollView.silentlyUpdateContentOffset(to: offset)
+        contentHeightObservation = currentScrollView?.observe(\.contentSize, options: [.new, .old]) { [unowned self] s, change in
+            if let old = change.oldValue, let new = change.newValue, old === new { return }
             self.scrollView.invalidateLayout()
-            print(
-                """
-                ------ (calibration)
-                contentSize      \(s.contentSize.height)
-                scrollableOffset \(s.contentOffset.y)
-                contentOffset    \(self.scrollView.contentOffset.y)
-                calibratedOffset \(offset.y) | deviation \(offset.y - self.scrollView.contentOffset.y)
-                """)
-            self.scrollView.silentlyUpdateContentOffset(to: offset)
-            print(
-                """
-                ------ (update)
-                contentSize      \(s.contentSize.height)
-                scrollableOffset \(s.contentOffset.y)
-                contentOffset    \(self.scrollView.contentOffset.y)
-                calibratedOffset \(offset.y) | deviation \(offset.y - self.scrollView.contentOffset.y)
-                ========\n\n
-                """)
+            self.calibrateContentOffset()
         }
     }
 
@@ -253,14 +230,13 @@ open class HeaderSegmentController: UIViewController {
         let segmentOffsetY = headerHeight - segmentControllerOrigin.y
         let scrollableContentOffsetY = currentScrollView?.contentOffset.y ?? 0
         let offset = CGPoint(x: 0, y: segmentOffsetY + scrollableContentOffsetY)
-        
+        updateContentOffset(to: offset)
+        print("calibrate \(offset)")
         return offset
     }
     
     private func updateContentOffset(to offset: CGPoint) {
-        scrollView.recognizer.lastContentOffset = offset
-        scrollView.recognizer.contentOffset = offset
-        scrollView.contentOffset = offset
+        scrollView.silentlyUpdateContentOffset(to: offset)
     }
     
     private func calibrateContentInset() {
@@ -276,15 +252,20 @@ extension HeaderSegmentController: SegmentControllerDelegate {
     
     open func segmentControllerDidScroll(toPageIndex pageIndex: Int) {
         let offset = calibrateContentOffset()
-        scrollView.silentlyUpdateContentOffset(to: offset)
         scrollView.invalidateLayout()
         calibrateContentInset()
-        scrollView.silentlyUpdateContentOffset(to: offset)
+        updateContentOffset(to: offset)
         
         observeCurrentScrollViewContentHeightIfExists()
     }
     
     open func segmentControllerWillScroll(fromPageIndex pageIndex: Int) {
         // do nothing
+    }
+}
+
+extension HeaderSegmentController: UIScrollViewDelegate {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        calibrateContentOffset()
     }
 }

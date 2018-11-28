@@ -32,8 +32,7 @@ public final class NonScrollViewScrollRecognizer {
     fileprivate func updateContentOffset(to offset: CGPoint) {
         lastContentOffset = contentOffset
         contentOffset = offset
-        guard Float(contentOffset.x) != Float(lastContentOffset.x) || Float(contentOffset.y) != Float(lastContentOffset.y)
-            else { return }
+        guard contentOffset !== lastContentOffset else { return }
         onChange?(self)
     }
     
@@ -100,6 +99,7 @@ open class NonScrollView: UIScrollView {
     
     override open var contentOffset: CGPoint {
         didSet {
+            print(contentOffset)
             if shouldSilentlyChangeContentOffset {
                 recognizer.silentlyUpdateContentOffset(to: contentOffset)
             } else {

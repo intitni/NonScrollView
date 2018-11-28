@@ -13,6 +13,22 @@ final class ThreadSafe<A> {
     }
 }
 
+func ===<F: FloatingPoint>(lhs: F, rhs: F) -> Bool {
+    if lhs == rhs { return true }
+    var epsilon: F
+    if lhs > rhs {
+        epsilon = lhs * .ulpOfOne;
+    } else {
+        epsilon = rhs * .ulpOfOne;
+    }
+    
+    return abs(lhs - rhs) < epsilon;
+}
+
+func !==<F: FloatingPoint>(lhs: F, rhs: F) -> Bool {
+    return !(lhs === rhs)
+}
+
 extension CGPoint {
     static func +(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
         return .init(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
@@ -28,6 +44,14 @@ extension CGPoint {
     
     static func -=(lhs: inout CGPoint, rhs: CGPoint) {
         lhs = .init(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
+    }
+    
+    static func ===(lhs: CGPoint, rhs: CGPoint) -> Bool {
+        return lhs.x === rhs.x && lhs.y === rhs.y
+    }
+    
+    static func !==(lhs: CGPoint, rhs: CGPoint) -> Bool {
+        return !(lhs === rhs)
     }
 }
 
@@ -46,6 +70,14 @@ extension CGSize {
     
     static func -=(lhs: inout CGSize, rhs: CGSize) {
         lhs = .init(width: lhs.width - rhs.width, height: lhs.height - rhs.height)
+    }
+    
+    static func ===(lhs: CGSize, rhs: CGSize) -> Bool {
+        return lhs.width === rhs.width && lhs.height === rhs.height
+    }
+    
+    static func !==(lhs: CGSize, rhs: CGSize) -> Bool {
+        return !(lhs === rhs)
     }
 }
 
@@ -96,6 +128,14 @@ extension CGRect {
     
     static func -=(lhs: inout CGRect, rhs: CGRect) {
         lhs = .init(origin: lhs.origin - rhs.origin, size: lhs.size - rhs.size)
+    }
+    
+    static func ===(lhs: CGRect, rhs: CGRect) -> Bool {
+        return lhs.size === rhs.size && lhs.origin === rhs.origin
+    }
+    
+    static func !==(lhs: CGRect, rhs: CGRect) -> Bool {
+        return !(lhs === rhs)
     }
 }
 
