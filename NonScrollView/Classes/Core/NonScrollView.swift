@@ -32,7 +32,14 @@ public final class NonScrollViewScrollRecognizer {
     fileprivate func updateContentOffset(to offset: CGPoint) {
         lastContentOffset = contentOffset
         contentOffset = offset
+        guard Float(contentOffset.x) != Float(lastContentOffset.x) || Float(contentOffset.y) != Float(lastContentOffset.y)
+            else { return }
         onChange?(self)
+    }
+    
+    fileprivate func silentlyUpdateContentOffset(to offset: CGPoint) {
+        lastContentOffset = offset
+        contentOffset = offset
     }
 }
 
@@ -81,15 +88,31 @@ public final class NonScrollViewLayout {
 /// You can compute the frames outside of this class and pass them back in through `layout`.
 ///
 /// Check `HeaderSegmentController` for example.
-public class NonScrollView: UIScrollView {
+open class NonScrollView: UIScrollView {
     /// When `NonScrollViewLayout` is not enough for your complicated layout,
     /// you may want to observe the change of `NonScrollView` through this property.
     public let recognizer = NonScrollViewScrollRecognizer()
     /// Provides views to add as subviews, and the ways to layout them according to current content offset.
     private let layout: NonScrollViewLayout
     
-    override public var contentOffset: CGPoint {
-        didSet { recognizer.updateContentOffset(to: contentOffset) }
+    
+    private var shouldSilentlyChangeContentOffset: Bool = false
+    
+    override open var contentOffset: CGPoint {
+        didSet {
+            if shouldSilentlyChangeContentOffset {
+                recognizer.silentlyUpdateContentOffset(to: contentOffset)
+            } else {
+                recognizer.updateContentOffset(to: contentOffset)
+            }
+        }
+    }
+    
+    public func silentlyUpdateContentOffset(to offset: CGPoint) {
+        shouldSilentlyChangeContentOffset = true
+        defer { shouldSilentlyChangeContentOffset = false }
+        
+        contentOffset = offset
     }
     
     public func invalidateLayout() {
@@ -103,7 +126,7 @@ public class NonScrollView: UIScrollView {
         recognizer.scrollView = self
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -113,7 +136,7 @@ public class NonScrollView: UIScrollView {
         return .init(previousOffset: recognizer.lastContentOffset, offset: contentOffset, size: frame.size)
     }
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         layoutMappedViews()
     }

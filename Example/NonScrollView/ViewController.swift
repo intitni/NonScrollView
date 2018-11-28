@@ -72,10 +72,11 @@ class ViewController: UIViewController {
         
         let scrollViewChainControllerAction = UIAlertAction(title: "ScrollViewChainController", style: .default) {
             [unowned self] _ in
-            let vc1 = TableViewController(numberOfItems: 20)
+            let vc1 = TableViewController(numberOfItems: 5)
             vc1.view.backgroundColor = .green
-            let vc2 = TableViewController(numberOfItems: 30)
+            let vc2 = TableViewController(numberOfItems: 5)
             vc2.view.backgroundColor = .yellow
+            vc2.view.alpha = 0.5
             
             let v = ScrollViewChainController(chainA: vc1, chainB: vc2)
             
@@ -102,6 +103,9 @@ class TableViewController: UITableViewController {
         self.numberOfItems = numberOfItems
         super.init(style: .grouped)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "c")
+        tableView.estimatedRowHeight = 0
+        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.contentInset = .zero
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -120,12 +124,40 @@ class TableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(indexPath.row % 4 + 2) * 30
+        return 80
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        numberOfItems += [-1, 1].randomElement()! * (3...5).randomElement()!
-        tableView.reloadData()
+        let change = indexPath.row % 2 == 0 ? 1 : -1
+        let old = numberOfItems
+        numberOfItems += change
+        numberOfItems = max(1, numberOfItems)
+        
+        let iterate: (Int, Int) -> AnyIterator<Int> = {
+            var i = $0 - 1
+            let end = $1
+            return AnyIterator<Int> {
+                i += 1
+                if i > end { return nil }
+                return i
+            }
+        }
+        
+        if change > 0 {
+            let indices = iterate(old, old + change - 1).map { return IndexPath(row: $0, section: 0) }
+            tableView.insertRows(at: indices, with: .fade)
+        } else if change < 0 {
+            let indices = iterate(old + change, old - 1).map { return IndexPath(row: $0, section: 0) }
+            tableView.deleteRows(at: indices, with: .fade)
+        }
     }
 }
 

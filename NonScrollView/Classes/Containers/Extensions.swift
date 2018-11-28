@@ -1,5 +1,18 @@
 import UIKit
 
+final class ThreadSafe<A> {
+    private var _value: A
+    private let queue = DispatchQueue(label: "ThreadSafe")
+    init(_ value: A) {
+        self._value = value
+    }
+    
+    var value: A {
+        get { return queue.sync { _value } }
+        set { queue.sync { _value = newValue } }
+    }
+}
+
 extension CGPoint {
     static func +(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
         return .init(x: lhs.x + rhs.x, y: lhs.y + rhs.y)

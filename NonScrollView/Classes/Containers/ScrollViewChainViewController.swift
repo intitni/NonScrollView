@@ -47,65 +47,62 @@ open class ScrollViewChainController: UIViewController {
         chainA.chainingScrollView.isScrollEnabled = false
         chainB.chainingScrollView.isScrollEnabled = false
 
-        scrollView = {
-            let layout = NonScrollViewLayout(
-                viewPlacers: [
-                    .init(view: chainA.view,
-                          generateFrame: { [unowned self] ref in
-                            let offsetY = ref.offset.y
-                            let y = self.chainAHeight - offsetY - ref.size.height
-                            return CGRect(origin: .init(x: 0, y: min(y, 0)), size: ref.size)
-                        }, updateView: { [unowned self] ref in
-                            self.chainA.contentOffset = CGPoint(
-                                x: 0,
-                                y: min(ref.offset.y, self.chainAHeight - ref.size.height))
-                        }),
-                    .init(view: chainB.view,
-                          generateFrame: { [unowned self] ref in
-                            let offsetY = ref.offset.y
+        let layout = NonScrollViewLayout(
+            viewPlacers: [
+                .init(view: chainA.view,
+                      generateFrame: { [unowned self] ref in
+                        let offsetY = ref.offset.y
+                        let y = max(0, self.chainAHeight - ref.size.height) - offsetY
+                        let potentialOffsetY = min(ref.offset.y, max(0, self.chainAHeight - ref.size.height))
+                        return CGRect(origin: .init(x: 0, y: min(y, 0)),
+                                      size: CGSize(width: ref.size.width,
+                                                   height: min(ref.size.height, self.chainAHeight + max(0, -potentialOffsetY))))
+                    }, updateView: { [unowned self] ref in
+                        self.chainA.contentOffset = CGPoint(
+                            x: 0,
+                            y: min(ref.offset.y, max(0, self.chainAHeight - ref.size.height)))
+                }),
+                .init(view: chainB.view,
+                      generateFrame: { [unowned self] ref in
+                        let chainAMaxY = self.chainA.view.frame.maxY - ref.offset.y
+                        return CGRect(origin: .init(x: 0, y: min(0, chainAMaxY)),
+                                      size: CGSize(width: ref.size.width,
+                                                   height: ref.size.height))
+                    }, updateView: { [unowned self] ref in
+                        let offsetY = ref.offset.y
                         
-                            if offsetY > self.chainAHeight {
-                                return CGRect(origin: .init(x: 0, y: max(self.chainAHeight - offsetY, 0)),
-                                              size: ref.size)
-                            } else if offsetY > self.chainAHeight - ref.size.height {
-                                return CGRect(origin: .init(x: 0, y: max(self.chainAHeight - offsetY, 0)),
-                                              size: ref.size)
-                            }
-                            return CGRect(origin: .init(x: 0, y: ref.size.height), size: ref.size)
-                        }, updateView: { [unowned self] ref in
-                            let offsetY = ref.offset.y
-                            
-                            if offsetY > self.chainAHeight {
-                                self.chainB.contentOffset = ref.offset - .init(x: 0, y: self.chainAHeight - ref.size.height)
-                            } else if offsetY > self.chainAHeight - ref.size.height {
-                                self.chainB.contentOffset = .zero
-                            } else {
-                                self.chainB.contentOffset = .zero
-                            }
-                        })
-                ],
-                contentSizeGenerator: {
-                    [unowned self] ref in
-                    self.chainA.chainingScrollView.layoutIfNeeded()
-                    self.chainB.chainingScrollView.layoutIfNeeded()
-                    self.chainAHeight = self.chainA.contentHeight
-                    self.chainBHeight = self.chainB.contentHeight
-                    let height = self.chainAHeight + self.chainBHeight
-                    return CGSize(width: ref.size.width, height: height - ref.size.height)
+                        if self.chainBHeight <= ref.size.height { self.chainB.contentOffset = .zero; return }
+                        
+                        if offsetY > self.chainAHeight {
+                            self.chainB.contentOffset = ref.offset - .init(x: 0, y: max(0, self.chainAHeight - ref.size.height))
+                        } else {
+                            self.chainB.contentOffset = .zero
+                        }
                 })
-            
+            ],
+            contentSizeGenerator: {
+                [unowned self] ref in
+                self.chainA.chainingScrollView.layoutIfNeeded()
+                self.chainB.chainingScrollView.layoutIfNeeded()
+                self.chainAHeight = self.chainA.contentHeight
+                self.chainBHeight = self.chainB.contentHeight
+                let height = self.chainAHeight + self.chainBHeight
+                return CGSize(width: ref.size.width, height: height)
+        })
+
+        scrollView = {
             let it = NonScrollView(frame: .zero, layout: layout)
             if #available(iOS 11.0, *) {
                 it.contentInsetAdjustmentBehavior = .never
             }
             it.alwaysBounceVertical = true
             it.translatesAutoresizingMaskIntoConstraints = false
-            self.view.addSubview(it)
+            view.addSubview(it)
             NSLayoutConstraint.activate([
-                it.topAnchor.constraint(equalTo: self.view.topAnchor),
-                it.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-                it.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-                it.rightAnchor.constraint(equalTo: self.view.rightAnchor)
+                it.topAnchor.constraint(equalTo: view.topAnchor),
+                it.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                it.leftAnchor.constraint(equalTo: view.leftAnchor),
+                it.rightAnchor.constraint(equalTo: view.rightAnchor)
                 ])
             
             return it
