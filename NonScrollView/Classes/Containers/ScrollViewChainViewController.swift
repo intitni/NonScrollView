@@ -65,7 +65,7 @@ open class ScrollViewChainController: UIViewController {
                 .init(view: chainB.view,
                       generateFrame: { [unowned self] ref in
                         let chainAMaxY = self.chainA.view.frame.maxY - ref.offset.y
-                        return CGRect(origin: .init(x: 0, y: min(0, chainAMaxY)),
+                        return CGRect(origin: .init(x: 0, y: max(0, chainAMaxY)),
                                       size: CGSize(width: ref.size.width,
                                                    height: ref.size.height))
                     }, updateView: { [unowned self] ref in
