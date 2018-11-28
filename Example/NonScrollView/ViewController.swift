@@ -6,6 +6,7 @@ import NonScrollView
 class ViewController: UIViewController {
     
     var obs: NSKeyValueObservation?
+    var exampleObservations: [NSKeyValueObservation] = []
     let button: UIButton = UIButton(type: .custom)
     
     deinit { obs?.invalidate() }
@@ -19,80 +20,152 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        exampleObservations.forEach { $0.invalidate() }
+        exampleObservations.removeAll()
+        
         super.viewDidAppear(animated)
         
-        let alert = UIAlertController(title: "Choose Type", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Choose Example", message: nil, preferredStyle: .actionSheet)
         
-        let addButtonToViewController: (UIViewController)->Void = { [unowned self] vc in
-            vc.view.addSubview(self.button)
-            self.button.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                self.button.topAnchor.constraint(equalTo: vc.view.safeAreaLayoutGuide.topAnchor, constant: 10),
-                self.button.leftAnchor.constraint(equalTo: vc.view.leftAnchor, constant: 10)
-                ])
-        }
-        
-        let headerSegmentControllerAction = UIAlertAction(title: "HeaderSegmentController", style: .default) {
-            [unowned self] _ in
-            let vc1 = TableViewController(numberOfItems: 20)
-            vc1.view.backgroundColor = .green
-            let vc2 = TableViewController(numberOfItems: 30)
-            vc2.view.backgroundColor = .yellow
-            let vc3 = UIViewController()
-            vc3.view.backgroundColor = .blue
-            let vc4 = TableViewController(numberOfItems: 2)
-            vc4.view.backgroundColor = .orange
-            let header = UIViewController()
-            header.view.backgroundColor = .purple
-            let headerLabel: UILabel = {
-                let it = UILabel()
-                header.view.addSubview(it)
-                it.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    it.centerXAnchor.constraint(equalTo: header.view.centerXAnchor),
-                    it.bottomAnchor.constraint(equalTo: header.view.bottomAnchor, constant: -10)
-                    ])
-                return it
-            }()
-            
-            self.obs = header.view.observe(\.frame) { view, _ in
-                headerLabel.text = "\(view.frame.height)"
-            }
-            
-            let v = HeaderSegmentController(
-                headerVC: header,
-                defaultHeaderHeight: 250,
-                segmentControl: SegmentControl(frame: .zero),
-                pages: [vc1, vc2, vc3, vc4])
-            
-            addButtonToViewController(v)
-            
-            self.present(v, animated: true, completion: nil)
-        }
-        
-        let scrollViewChainControllerAction = UIAlertAction(title: "ScrollViewChainController", style: .default) {
-            [unowned self] _ in
-            let vc1 = TableViewController(numberOfItems: 5)
-            vc1.view.backgroundColor = .green
-            let vc2 = TableViewController(numberOfItems: 5)
-            vc2.view.backgroundColor = .yellow
-            vc2.view.alpha = 0.5
-            
-            let v = ScrollViewChainController(chainA: vc1, chainB: vc2)
-            
-            addButtonToViewController(v)
-            
-            self.present(v, animated: true, completion: nil)
-        }
-        
-        alert.addAction(headerSegmentControllerAction)
-        alert.addAction(scrollViewChainControllerAction)
+        alert.addAction(UIAlertAction(title: "HeaderSegmentController", style: .default) {
+            [unowned self] _ in self.showHeaderSegmentController()
+        })
+        alert.addAction(UIAlertAction(title: "ScrollViewChainController", style: .default) {
+            [unowned self] _ in self.showScrollViewChain()
+        })
         
         present(alert, animated: true, completion: nil)
     }
     
     @objc func handleButtonTap() {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ViewController {
+    
+    private func addButtonToViewController(_ vc: UIViewController) -> Void {
+        vc.view.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            button.topAnchor.constraint(equalTo: vc.view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            button.leftAnchor.constraint(equalTo: vc.view.leftAnchor, constant: 10)
+            ])
+    }
+    
+    private func addInfoView(_ infoView: UIStackView, to vc: UIViewController) {
+        infoView.alignment = .trailing
+        vc.view.addSubview(infoView)
+        infoView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoView.rightAnchor.constraint(equalTo: vc.view.rightAnchor, constant: -10),
+            infoView.topAnchor.constraint(equalTo: vc.view.topAnchor, constant: 50)
+            ])
+    }
+    
+    private func showHeaderSegmentController() {
+        let vc1 = TableViewController(numberOfItems: 20)
+        vc1.view.backgroundColor = .green
+        let vc2 = TableViewController(numberOfItems: 30)
+        vc2.view.backgroundColor = .yellow
+        let vc3 = UIViewController()
+        vc3.view.backgroundColor = .blue
+        let vc4 = TableViewController(numberOfItems: 2)
+        vc4.view.backgroundColor = .orange
+        let header = UIViewController()
+        header.view.backgroundColor = .purple
+        let headerLabel: UILabel = {
+            let it = UILabel()
+            header.view.addSubview(it)
+            it.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                it.centerXAnchor.constraint(equalTo: header.view.centerXAnchor),
+                it.bottomAnchor.constraint(equalTo: header.view.bottomAnchor, constant: -10)
+                ])
+            return it
+        }()
+        
+        obs = header.view.observe(\.frame) { view, _ in
+            headerLabel.text = "\(view.frame.height)"
+        }
+        
+        let v = HeaderSegmentController(
+            headerVC: header,
+            defaultHeaderHeight: 250,
+            segmentControl: SegmentControl(frame: .zero),
+            pages: [vc1, vc2, vc3, vc4])
+        
+        let _ = v.view
+        let infoView = InfoView([
+            InfoView.Element<UIScrollView, CGPoint>("scrollView offset", v.scrollView, \.contentOffset),
+            InfoView.Element<UIScrollView, CGSize>("scrollView contentSize", v.scrollView, \.contentSize),
+            InfoView.Element<UIScrollView, CGPoint>("vc1 offset", vc1.tableView, \.contentOffset),
+            InfoView.Element<UIScrollView, CGPoint>("vc2 offset", vc2.tableView, \.contentOffset),
+            InfoView.Element<UIScrollView, CGPoint>("vc4 offset", vc4.tableView, \.contentOffset)
+            ])
+        addInfoView(infoView, to: v)
+        
+        addButtonToViewController(v)
+        
+        present(v, animated: true, completion: nil)
+    }
+    
+    private func showScrollViewChain() {
+        let vc1 = TableViewController(numberOfItems: 5)
+        vc1.view.backgroundColor = .green
+        let vc2 = TableViewController(numberOfItems: 5)
+        vc2.view.backgroundColor = .yellow
+        vc2.view.alpha = 0.5
+        
+        let v = ScrollViewChainController(chainA: vc1, chainB: vc2)
+        
+        let _ = v.view
+        let infoView = InfoView([
+            InfoView.Element<UIScrollView, CGPoint>("scrollView offset", v.scrollView, \.contentOffset),
+            InfoView.Element<UIScrollView, CGSize>("scrollView contentSize", v.scrollView, \.contentSize),
+            InfoView.Element<UIScrollView, CGPoint>("vc1 offset", vc1.tableView, \.contentOffset),
+            InfoView.Element<UIScrollView, CGPoint>("vc2 offset", vc2.tableView, \.contentOffset),
+            ])
+        addInfoView(infoView, to: v)
+        
+        addButtonToViewController(v)
+        
+        present(v, animated: true, completion: nil)
+    }
+}
+
+class InfoView: UIStackView {
+    class Element<O: NSObject, V>: UILabel {
+        var observation: NSKeyValueObservation?
+        deinit { observation?.invalidate() }
+        init(_ title: String, _ o: O, _ keyPath: KeyPath<O, V>) {
+            super.init(frame: .zero)
+            observation = o.observe(keyPath, options: [.initial, .new]) { [unowned self] obj, change in
+                guard let v = change.newValue else {
+                    self.text = "\(title): nil"
+                    return
+                }
+                self.text = "\(title): \(v)"
+            }
+            font = .systemFont(ofSize: 10)
+            textColor = .black
+            textAlignment = .right
+            backgroundColor = UIColor.white.withAlphaComponent(0.4)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
+    
+    init(_ elements: [UIView]) {
+        super.init(frame: .zero)
+        elements.forEach(addArrangedSubview)
+        axis = .vertical
+    }
+    
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
