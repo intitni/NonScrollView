@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   end
   
   s.subspec 'Containers' do |sb|
-      sb.source_files = 'NonScrollView/Classes/Container/**/*'
+      sb.source_files = 'NonScrollView/Classes/Containers/**/*'
   end
 
 end
