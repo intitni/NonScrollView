@@ -2,7 +2,7 @@ import UIKit
 import NonScrollView
 
 class SegmentControl: UIControl, PassiveSegmentControlType, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    let height = 44 as CGFloat
+    var panelHeight: CGFloat { return 44 }
     let identifier = "cell"
     
     weak var delegate: SegmentControlTypeDelegate? = nil

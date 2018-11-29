@@ -20,7 +20,7 @@ public protocol SegmentControlTypeDataSource: AnyObject {
 
 public protocol SegmentControlType: AnyObject {
     /// Height of segment control
-    var height: CGFloat { get }
+    var panelHeight: CGFloat { get }
     /// Observe actions of segment control. When added to a `SegmentController`, it will be automatically set.
     var delegate: SegmentControlTypeDelegate? { get set }
     /// Provides data to segment control. When added to a `SegmentController`, it will be automatically set.
@@ -97,7 +97,7 @@ open class SegmentController: UIViewController {
                 it.topAnchor.constraint(equalTo: view.topAnchor),
                 it.leftAnchor.constraint(equalTo: view.leftAnchor),
                 it.rightAnchor.constraint(equalTo: view.rightAnchor),
-                it.heightAnchor.constraint(equalToConstant: vcs.count > 0 ? it.height : 0)
+                it.heightAnchor.constraint(equalToConstant: vcs.count > 0 ? it.panelHeight : 0)
                 ])
             it.backgroundColor = .red
             return it
@@ -113,6 +113,7 @@ open class SegmentController: UIViewController {
             if #available(iOS 11.0, *) {
                 it.insetsLayoutMarginsFromSafeArea = false
             }
+            it.alwaysBounceHorizontal = false
             it.backgroundColor = .white
             it.isPagingEnabled = true
             it.dataSource = self
@@ -171,6 +172,18 @@ extension SegmentController: UICollectionViewDelegateFlowLayout {
     
     open func scrollViewContentOffsetDidChange() {
         (segmentControl as? ProactiveSegmentControlType)?.updateHighlighterOffset(toMatchPageOffset: pageOffset)
+    }
+    
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let min = 0 as CGFloat
+        let max = CGFloat(numberOfItem - 1) * collectionView.bounds.width
+        if scrollView.contentOffset.x < min {
+            scrollView.contentOffset = .init(x: min, y: 0)
+        }
+        
+        if scrollView.contentOffset.x > max {
+            scrollView.contentOffset = .init(x: max, y: 0)
+        }
     }
 }
 

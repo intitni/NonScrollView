@@ -17,7 +17,7 @@ extension SegmentController {
     }
     
     fileprivate var segmentControlHeight: CGFloat {
-        return vcs.count > 1 ? segmentControl.height : 0
+        return vcs.count > 1 ? segmentControl.panelHeight : 0
     }
     
     fileprivate var scrollableContentHeight: CGFloat? {
@@ -142,9 +142,7 @@ open class HeaderSegmentController: UIViewController {
         observeCurrentScrollViewContentHeightIfExists()
         
         scrollView.recognizer.onChange = { [unowned self] rec in
-            enum PullDirection {
-                case pullUp, pullDown
-            }
+            enum PullDirection { case pullUp, pullDown }
 
             let translationY = rec.translation.y
             guard translationY != 0 else { return }
