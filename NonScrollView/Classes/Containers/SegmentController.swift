@@ -81,6 +81,13 @@ open class SegmentController: UIViewController {
         segmentControl.dataSource = self
     }
     
+    public func setViewControllers(_ viewControllers: [UIViewController]) {
+        vcs.forEach { $0.removeFromParent() }
+        vcs = viewControllers
+        viewControllers.forEach(self.addChild)
+        collectionView.reloadData()
+    }
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -130,8 +137,8 @@ open class SegmentController: UIViewController {
             return it
         }()
         
-        collectionView.observe(\.contentOffset) { [unowned self] _, _ in
-            self.scrollViewContentOffsetDidChange()
+        collectionView.observe(\.contentOffset) { [weak self] _, _ in
+            self?.scrollViewContentOffsetDidChange()
         } .addTo(disposables)
     }
 }
