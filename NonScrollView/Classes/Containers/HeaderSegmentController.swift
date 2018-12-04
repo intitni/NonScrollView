@@ -153,6 +153,15 @@ open class HeaderSegmentController: UIViewController {
                 let location = rec.touchLocation(in: self.scrollView) {
                 let inside = (self.segmentController.view.frame).contains(location)
                 self.touchBeginsInSegmentController = inside
+                
+                let hitTop = self.segmentControllerOrigin.y <= 0
+                let scrollableAtTop = (self.currentScrollView?.contentOffset.y ?? 0) <= 0
+                
+                switch (hitTop, scrollableAtTop, inside) {
+                case (false, false, true): self.convertContentInsetToDefaultMode()
+                case (false, false, false): self.convertContentInsetToShortMode()
+                default: break
+                }
             }
             
             switch (self.currentScrollView, hitTop, pullDirection) {
@@ -173,7 +182,6 @@ open class HeaderSegmentController: UIViewController {
                     let newOrigin = self.segmentControllerOrigin - rec.translation
                     self.segmentControllerOrigin = .init(x: 0, y: max(newOrigin.y, 0))
                 }
-                self.calibrateContentInset()
             
              case (.some(let scrollable), false, .pullUp):
                 
@@ -204,7 +212,6 @@ open class HeaderSegmentController: UIViewController {
                     let newOrigin = self.segmentControllerOrigin - rec.translation
                     self.segmentControllerOrigin = .init(x: 0, y: max(newOrigin.y, 0))
                 }
-                self.calibrateContentInset()
                 
             case (.none, _, _):
                 
@@ -237,12 +244,22 @@ open class HeaderSegmentController: UIViewController {
         scrollView.silentlyUpdateContentOffset(to: offset)
     }
     
-    private func calibrateContentInset() {
-        let hitTop = self.segmentControllerOrigin.y <= 0
-        let bottom = scrollView.contentInset.bottom
-        let new = UIEdgeInsets(top: hitTop ? 0 : -(currentScrollView?.contentOffset.y ?? 0),
-                               left: 0, bottom: bottom, right: 0)
-        scrollView.contentInset = new
+    private func convertContentInsetToShortMode() {
+        let preservedContentOffset = scrollView.contentOffset
+        var contentInset = scrollView.contentInset
+        contentInset.top = -(self.currentScrollView?.contentOffset.y ?? 0)
+        guard contentInset != scrollView.contentInset else { return }
+        scrollView.contentInset = contentInset
+        scrollView.silentlyUpdateContentOffset(to: preservedContentOffset)
+    }
+    
+    private func convertContentInsetToDefaultMode() {
+        let preservedContentOffset = scrollView.contentOffset
+        var contentInset = scrollView.contentInset
+        contentInset.top = 0
+        guard contentInset != scrollView.contentInset else { return }
+        scrollView.contentInset = contentInset
+        scrollView.silentlyUpdateContentOffset(to: preservedContentOffset)
     }
 }
 
@@ -251,7 +268,6 @@ extension HeaderSegmentController: SegmentControllerDelegate {
     open func segmentControllerDidScroll(toPageIndex pageIndex: Int) {
         let offset = calibrateContentOffset()
         scrollView.invalidateLayout()
-        calibrateContentInset()
         updateContentOffset(to: offset)
         
         observeCurrentScrollViewContentHeightIfExists()
