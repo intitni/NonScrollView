@@ -61,12 +61,15 @@ extension ViewController {
     private func showHeaderSegmentController() {
         let vc1 = TableViewController(numberOfItems: 20)
         vc1.view.backgroundColor = .green
+        vc1.tableView.backgroundColor = .green
         let vc2 = TableViewController(numberOfItems: 30)
         vc2.view.backgroundColor = .yellow
+        vc2.tableView.backgroundColor = .yellow
         let vc3 = UIViewController()
         vc3.view.backgroundColor = .blue
         let vc4 = TableViewController(numberOfItems: 2)
         vc4.view.backgroundColor = .orange
+        vc4.tableView.backgroundColor = .orange
         let header = UIViewController()
         header.view.backgroundColor = .purple
         let headerLabel: UILabel = {
@@ -120,9 +123,10 @@ extension ViewController {
     private func showScrollViewChain() {
         let vc1 = TableViewController(numberOfItems: 5)
         vc1.view.backgroundColor = .green
+        vc1.tableView.backgroundColor = .green
         let vc2 = TableViewController(numberOfItems: 5)
         vc2.view.backgroundColor = .yellow
-        vc2.view.alpha = 0.5
+        vc2.tableView.backgroundColor = .yellow
         
         let v = ScrollViewChainController(chainA: vc1, chainB: vc2)
         

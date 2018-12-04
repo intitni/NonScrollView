@@ -39,7 +39,7 @@ class InspectionViewController: UIViewController {
                                               y: offsetScale * view.bounds.height,
                                               width: scale * view.bounds.width,
                                               height: scale * view.bounds.height)))
-        coverLayer.fillColor = UIColor.white.withAlphaComponent(0.8).cgColor
+        coverLayer.fillColor = UIColor.white.withAlphaComponent(0.7).cgColor
         coverLayer.path = path.cgPath
         coverLayer.fillRule = CAShapeLayerFillRule.evenOdd
         view.layer.addSublayer(coverLayer)
