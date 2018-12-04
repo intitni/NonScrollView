@@ -97,7 +97,7 @@ extension ViewController {
         let infoView = InfoView([
             InfoView.Title("Main Scroll View"),
             InfoView.Element<UIScrollView, CGPoint>("offset", v.scrollView, \.contentOffset),
-            InfoView.Element<UIScrollView, UIEdgeInsets>("inset", v.scrollView, \.adjustedContentInset),
+            InfoView.Element<UIScrollView, UIEdgeInsets>("inset", v.scrollView, \.contentInset),
             InfoView.Element<UIScrollView, CGSize>("contentSize", v.scrollView, \.contentSize),
             InfoView.Gap(height: 10),
             InfoView.Element<UIScrollView, CGPoint>("vc1 offset", vc1.tableView, \.contentOffset),
@@ -207,7 +207,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let change = indexPath.row % 2 == 0 ? 1 : -1
+        let change = indexPath.row % 2 == 0 ? 10 : -5
         let old = numberOfItems
         numberOfItems += change
         numberOfItems = max(1, numberOfItems)

@@ -71,8 +71,6 @@ open class ScrollViewChainController: UIViewController {
                     }, updateView: { [unowned self] ref in
                         let offsetY = ref.offset.y
                         
-                        if self.chainBHeight <= ref.size.height { self.chainB.contentOffset = .zero; return }
-                        
                         if offsetY > self.chainAHeight {
                             self.chainB.contentOffset = ref.offset - .init(x: 0, y: max(0, self.chainAHeight))
                         } else {

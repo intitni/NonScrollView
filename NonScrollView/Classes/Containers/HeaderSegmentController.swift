@@ -115,7 +115,7 @@ open class HeaderSegmentController: UIViewController {
                 [unowned self] ref in
                 if let height = self.segmentController.scrollableContentHeight {
                     return CGSize(width: ref.size.width,
-                                  height: max(ref.size.height - self.headerHeight, height + self.headerHeight))
+                                  height: max(ref.size.height + self.headerHeight, height + self.headerHeight))
                 }
                 return CGSize(width: ref.size.width, height: ref.size.height + self.headerHeight)
         })

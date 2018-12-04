@@ -44,7 +44,10 @@ class InspectionViewController: UIViewController {
         coverLayer.fillRule = CAShapeLayerFillRule.evenOdd
         view.layer.addSublayer(coverLayer)
         coverLayer.zPosition = 99999
-        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         traceSubviews(of: inspecting.view) { view in view.clipsToBounds = false }
     }
     
@@ -54,7 +57,7 @@ class InspectionViewController: UIViewController {
     
     func traceSubviews(of view: UIView, andDo block: (UIView)->Void) {
         block(view)
-        for v in view.subviews {
+        for v in view.subviews where !(v is UITableView) {
             traceSubviews(of: v, andDo: block)
         }
     }

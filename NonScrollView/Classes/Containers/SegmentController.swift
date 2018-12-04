@@ -51,24 +51,22 @@ open class SegmentController: UIViewController {
     public var vcs: [UIViewController]
     public var segmentControl: UIControl & SegmentControlType
     public var currentPageIndex: Int = 0
-    public var computedCurrentPageIndex: Int {
-        let page = max(0, Int(floor(pageOffset)))
-        return min(max(0, page), vcs.endIndex - 1)
-    }
     
     public var currentPageVC: UIViewController {
         return vcs[currentPageIndex]
     }
 
-    public var collectionView: UICollectionView!
-    private let flowLayout =  UICollectionViewFlowLayout()
+    var pageViewController: UIPageViewController!
+    var pageScrollView: UIScrollView?
     
     private var pageOffset: CGFloat {
-        guard let collectionView = collectionView else { return 0 }
-        let width = collectionView.bounds.size.width
-        let offset = collectionView.contentOffset.x / (width == 0 ? 1 : width)
-        return offset
+        let base = CGFloat(currentPageIndex)
+        guard let scrollView = pageScrollView else { return base }
+        let width = scrollView.bounds.size.width
+        let offset = scrollView.contentOffset.x / (width == 0 ? 1 : width)
+        return offset + base
     }
+    
     private let disposables = DisposableBag()
     
     public init(segmentControl: UIControl & SegmentControlType, viewControllers: [UIViewController]) {
@@ -84,7 +82,8 @@ open class SegmentController: UIViewController {
         vcs.forEach { $0.removeFromParent() }
         vcs = viewControllers
         viewControllers.forEach(self.addChild)
-        collectionView.reloadData()
+        guard let first = viewControllers.first else { return }
+        pageViewController?.setViewControllers([first], direction: .forward, animated: false, completion: nil)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -110,94 +109,104 @@ open class SegmentController: UIViewController {
         }()
         
         automaticallyAdjustsScrollViewInsets = false
-        collectionView = {
-            let it = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-            flowLayout.scrollDirection = .horizontal
-            flowLayout.minimumLineSpacing = 0
-            flowLayout.minimumInteritemSpacing = 0
-            flowLayout.sectionInset = .zero
-            if #available(iOS 11.0, *) {
-                it.insetsLayoutMarginsFromSafeArea = false
-            }
-            it.alwaysBounceHorizontal = false
-            it.backgroundColor = .white
-            it.isPagingEnabled = true
+        pageViewController = {
+            let it = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
             it.dataSource = self
             it.delegate = self
-            it.register(ViewControllerCell.self, forCellWithReuseIdentifier: Constants.cellIndentifier)
-            view.addSubview(it)
-            it.translatesAutoresizingMaskIntoConstraints = false
+            
+            view.addSubview(it.view)
+            it.view.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                it.topAnchor.constraint(equalTo: segmentControl.bottomAnchor),
-                it.leftAnchor.constraint(equalTo: view.leftAnchor),
-                it.rightAnchor.constraint(equalTo: view.rightAnchor),
-                it.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                it.view.topAnchor.constraint(equalTo: segmentControl.bottomAnchor),
+                it.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+                it.view.rightAnchor.constraint(equalTo: view.rightAnchor),
+                it.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                 ])
+            
+            for case let scrollView as UIScrollView in it.view.subviews {
+                pageScrollView = scrollView
+                scrollView.observe(\.contentOffset) { [weak self] _, _ in
+                    self?.scrollViewContentOffsetDidChange()
+                } .addTo(disposables)
+                break
+            }
+            
+            if let first = vcs.first {
+                it.setViewControllers([first], direction: .forward, animated: false, completion: nil)
+            }
+            
             return it
         }()
-        
-        collectionView.observe(\.contentOffset) { [weak self] _, _ in
-            self?.scrollViewContentOffsetDidChange()
-        } .addTo(disposables)
     }
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: - UIPageViewControllerDataSource
 
-extension SegmentController: UICollectionViewDataSource {
-    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return vcs.count
+extension SegmentController: UIPageViewControllerDataSource {
+    public func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerAfter viewController: UIViewController
+    ) -> UIViewController? {
+        guard let index = vcs.firstIndex(of: viewController), index < vcs.endIndex - 1 else { return nil }
+        return vcs[index + 1]
     }
     
-    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIndentifier, for: indexPath)
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let vc = vcs[indexPath.row]
-        (cell as? ViewControllerCell)?.configure(with: vc)
+    public func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerBefore viewController: UIViewController
+    ) -> UIViewController? {
+        guard let index = vcs.firstIndex(of: viewController), index > 0 else { return nil }
+        return vcs[index - 1]
     }
 }
 
-// MARK: - UICollectionViewDelegateFlowLayout
+// MARK: - UIPageViewControllerDelegate
 
-extension SegmentController: UICollectionViewDelegateFlowLayout {
-    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return collectionView.bounds.size
-    }
-    
-    open func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+extension SegmentController: UIPageViewControllerDelegate {
+    public func pageViewController(
+        _ pageViewController: UIPageViewController,
+        willTransitionTo pendingViewControllers: [UIViewController])
+    {
         delegate?.segmentControllerWillScroll(fromPageIndex: currentPageIndex)
     }
     
-    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        currentPageIndex = computedCurrentPageIndex
-        delegate?.segmentControllerDidScroll(toPageIndex: currentPageIndex)
-        (segmentControl as? PassiveSegmentControlType)?.highlightItem(atIndex: currentPageIndex, animated: true)
-    }
     
-    open func scrollViewContentOffsetDidChange() {
-        (segmentControl as? ProactiveSegmentControlType)?.updateHighlighterOffset(toMatchPageOffset: pageOffset)
-    }
-    
-    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let min = 0 as CGFloat
-        let max = CGFloat(numberOfItem - 1) * collectionView.bounds.width
-        if scrollView.contentOffset.x < min {
-            scrollView.contentOffset = .init(x: min, y: 0)
-        }
+    public func pageViewController(
+        _ pageViewController: UIPageViewController,
+        didFinishAnimating finished: Bool,
+        previousViewControllers: [UIViewController],
+        transitionCompleted completed: Bool)
+    {
+        guard completed else { return }
+        guard let currentViewController = pageViewController.viewControllers?.first else { return }
+        guard let index = vcs.firstIndex(of: currentViewController) else { return }
         
-        if scrollView.contentOffset.x > max {
-            scrollView.contentOffset = .init(x: max, y: 0)
-        }
+        currentPageIndex = index
+        delegate?.segmentControllerDidScroll(toPageIndex: index)
+        (segmentControl as? ProactiveSegmentControlType)?.updateHighlighterOffset(toMatchPageOffset: pageOffset)
+        (segmentControl as? PassiveSegmentControlType)?.highlightItem(atIndex: index, animated: true)
+    }
+}
+
+extension SegmentController: UIScrollViewDelegate {
+    public func scrollViewContentOffsetDidChange() {
+        (segmentControl as? ProactiveSegmentControlType)?.updateHighlighterOffset(toMatchPageOffset: pageOffset)
     }
 }
 
 // MARK: - SegmentControlTypeDelegate
 
 extension SegmentController: SegmentControlTypeDelegate {
-    open func segmentControlDidSelect(itemAtIndex index: Int) {
-        collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: true)
+    public func segmentControlDidSelect(itemAtIndex index: Int) {
+        guard currentPageIndex != index else { return }
+        let direction: UIPageViewController.NavigationDirection = index > currentPageIndex ? .forward : .reverse
+        let vc = vcs[index]
+        delegate?.segmentControllerWillScroll(fromPageIndex: currentPageIndex)
+        currentPageIndex = index
+        pageViewController.setViewControllers([vc], direction: direction, animated: true) { [unowned self] completed in
+            guard completed else { return }
+            self.delegate?.segmentControllerDidScroll(toPageIndex: index)
+        }
     }
 }
 
@@ -206,22 +215,4 @@ extension SegmentController: SegmentControlTypeDelegate {
 extension SegmentController: SegmentControlTypeDataSource {
     open var titles: [String] { return vcs.map { $0.title ?? "" } }
     open var numberOfItem: Int { return vcs.count }
-}
-
-// MARK: - ViewControllerCell
-
-fileprivate class ViewControllerCell: UICollectionViewCell {
-    func configure(with vc: UIViewController) {
-        contentView.backgroundColor = .white
-        contentView.subviews.forEach { $0.removeFromSuperview() }
-        contentView.addSubview(vc.view)
-        vc.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            vc.view.topAnchor.constraint(equalTo: contentView.topAnchor),
-            vc.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            vc.view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            vc.view.rightAnchor.constraint(equalTo: contentView.rightAnchor)
-            ])
-        contentView.layoutIfNeeded()
-    }
 }
