@@ -3,4 +3,5 @@ use_frameworks!
 target 'NonScrollView_Example' do
   pod 'NonScrollView', :path => '../'
   pod 'NonScrollView/Containers', :path => '../'
+  pod 'Reveal-SDK', '~> 19'
 end

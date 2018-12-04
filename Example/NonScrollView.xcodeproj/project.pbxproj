@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		13065FEA21971A19003B85A8 /* SegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13065FE921971A19003B85A8 /* SegmentControl.swift */; };
+		1368400921B57E4300C5CD16 /* InspectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1368400821B57E4300C5CD16 /* InspectionViewController.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		068619667A63E78CE28323FB /* Pods-NonScrollView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NonScrollView_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NonScrollView_Tests/Pods-NonScrollView_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		13065FE921971A19003B85A8 /* SegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControl.swift; sourceTree = "<group>"; };
+		1368400821B57E4300C5CD16 /* InspectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionViewController.swift; sourceTree = "<group>"; };
 		52785C4F18CB40F097E38CD3 /* NonScrollView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NonScrollView.podspec; path = ../NonScrollView.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		607FACD01AFB9204008FA782 /* NonScrollView_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NonScrollView_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				1368400821B57E4300C5CD16 /* InspectionViewController.swift */,
 			);
 			name = "Example for NonScrollView";
 			path = NonScrollView;
@@ -243,12 +246,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-NonScrollView_Example/Pods-NonScrollView_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/NonScrollView/NonScrollView.framework",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer-19/iOS/RevealServer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NonScrollView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -262,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1368400921B57E4300C5CD16 /* InspectionViewController.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				13065FEA21971A19003B85A8 /* SegmentControl.swift in Sources */,

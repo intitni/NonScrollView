@@ -3,18 +3,25 @@ PODS:
     - NonScrollView/Core (= 0.1.0)
   - NonScrollView/Containers (0.1.0)
   - NonScrollView/Core (0.1.0)
+  - Reveal-SDK (19)
 
 DEPENDENCIES:
   - NonScrollView (from `../`)
   - NonScrollView/Containers (from `../`)
+  - Reveal-SDK (~> 19)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Reveal-SDK
 
 EXTERNAL SOURCES:
   NonScrollView:
     :path: "../"
 
 SPEC CHECKSUMS:
-  NonScrollView: 2d395f69237c867d77933a04227c4e8e7f093bbd
+  NonScrollView: 53901f4a1f433ada970b157333893bc3f05ee4ed
+  Reveal-SDK: 9f0d2c6c12eb7507921e5454ac165b7aa21140a4
 
-PODFILE CHECKSUM: 09cdcd487b3fadf011daf429a54282d5f99c05cb
+PODFILE CHECKSUM: 60803bab57c0a96c6ecccda79e34a3ba02e02e6d
 
 COCOAPODS: 1.5.3

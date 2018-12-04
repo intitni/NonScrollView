@@ -144,9 +144,11 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/NonScrollView/NonScrollView.framework"
+  install_framework "${PODS_ROOT}/Reveal-SDK/RevealServer-19/iOS/RevealServer.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/NonScrollView/NonScrollView.framework"
+  install_framework "${PODS_ROOT}/Reveal-SDK/RevealServer-19/iOS/RevealServer.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

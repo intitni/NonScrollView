@@ -29,7 +29,7 @@
     },
     {
       "name": "Containers",
-      "source_files": "NonScrollView/Classes/Container/**/*"
+      "source_files": "NonScrollView/Classes/Containers/**/*"
     }
   ]
 }
