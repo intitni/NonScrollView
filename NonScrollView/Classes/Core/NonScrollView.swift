@@ -93,8 +93,6 @@ open class NonScrollView: UIScrollView {
     public let recognizer = NonScrollViewScrollRecognizer()
     /// Provides views to add as subviews, and the ways to layout them according to current content offset.
     private let layout: NonScrollViewLayout
-    
-    
     private var shouldSilentlyChangeContentOffset: Bool = false
     
     override open var contentOffset: CGPoint {
@@ -108,6 +106,7 @@ open class NonScrollView: UIScrollView {
         }
     }
     
+    /// Set `contentOffset` without notifying `recognizer`'s observer.
     public func silentlyUpdateContentOffset(to offset: CGPoint) {
         shouldSilentlyChangeContentOffset = true
         defer { shouldSilentlyChangeContentOffset = false }
@@ -115,6 +114,7 @@ open class NonScrollView: UIScrollView {
         contentOffset = offset
     }
     
+    /// Inform NonScrollView to regenerate contentSize.
     public func invalidateLayout() {
         contentSize = layout.generateContentSize(frameOfReference)
         layoutMappedViews()

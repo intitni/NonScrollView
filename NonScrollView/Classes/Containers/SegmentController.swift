@@ -60,8 +60,7 @@ open class SegmentController: UIViewController {
         return vcs[currentPageIndex]
     }
 
-    private var scrollView: UIScrollView!
-    private var collectionView: UICollectionView!
+    public var collectionView: UICollectionView!
     private let flowLayout =  UICollectionViewFlowLayout()
     
     private var pageOffset: CGFloat {
