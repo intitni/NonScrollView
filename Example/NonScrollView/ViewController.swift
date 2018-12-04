@@ -1,9 +1,10 @@
 import UIKit
 import NonScrollView
 
-
-
 class ViewController: UIViewController {
+    
+    var refresher: UIRefreshControl?
+    var refreshingScrollView: UIScrollView?
     
     var obs: NSKeyValueObservation?
     var exampleObservations: [NSKeyValueObservation] = []
@@ -54,13 +55,7 @@ extension ViewController {
     }
     
     private func addInfoView(_ infoView: UIStackView, to vc: UIViewController) {
-        infoView.alignment = .trailing
-        vc.view.addSubview(infoView)
-        infoView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            infoView.rightAnchor.constraint(equalTo: vc.view.rightAnchor, constant: -10),
-            infoView.topAnchor.constraint(equalTo: vc.view.topAnchor, constant: 50)
-            ])
+        
     }
     
     private func showHeaderSegmentController() {
@@ -97,17 +92,29 @@ extension ViewController {
         
         let _ = v.view
         let infoView = InfoView([
-            InfoView.Element<UIScrollView, CGPoint>("scrollView offset", v.scrollView, \.contentOffset),
-            InfoView.Element<UIScrollView, CGSize>("scrollView contentSize", v.scrollView, \.contentSize),
+            InfoView.Title("Main Scroll View"),
+            InfoView.Element<UIScrollView, CGPoint>("offset", v.scrollView, \.contentOffset),
+            InfoView.Element<UIScrollView, UIEdgeInsets>("inset", v.scrollView, \.adjustedContentInset),
+            InfoView.Element<UIScrollView, CGSize>("contentSize", v.scrollView, \.contentSize),
+            InfoView.Gap(height: 10),
             InfoView.Element<UIScrollView, CGPoint>("vc1 offset", vc1.tableView, \.contentOffset),
+            InfoView.Element<UIScrollView, UIEdgeInsets>("vc1 inset", vc1.tableView, \.adjustedContentInset),
             InfoView.Element<UIScrollView, CGPoint>("vc2 offset", vc2.tableView, \.contentOffset),
             InfoView.Element<UIScrollView, CGPoint>("vc4 offset", vc4.tableView, \.contentOffset)
             ])
-        addInfoView(infoView, to: v)
         
-        addButtonToViewController(v)
+        refresher = UIRefreshControl()
+        refresher?.tintColor = .white
+        refresher?.layer.zPosition = 99999
+        refresher?.isEnabled = true
+        refreshingScrollView = v.scrollView
+        v.scrollView.addSubview(refresher!)
+        refresher?.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         
-        present(v, animated: true, completion: nil)
+        let vc = InspectionViewController(inspecting: v, infoView: infoView)
+        addButtonToViewController(vc)
+                
+        present(vc, animated: true, completion: nil)
     }
     
     private func showScrollViewChain() {
@@ -121,94 +128,81 @@ extension ViewController {
         
         let _ = v.view
         let infoView = InfoView([
-            InfoView.Element<UIScrollView, CGPoint>("scrollView offset", v.scrollView, \.contentOffset),
-            InfoView.Element<UIScrollView, CGSize>("scrollView contentSize", v.scrollView, \.contentSize),
+            InfoView.Title("Main Scroll View"),
+            InfoView.Element<UIScrollView, CGPoint>("offset", v.scrollView, \.contentOffset),
+            InfoView.Element<UIScrollView, UIEdgeInsets>("inset", v.scrollView, \.contentInset),
+            InfoView.Element<UIScrollView, CGSize>("contentSize", v.scrollView, \.contentSize),
+            InfoView.Gap(height: 10),
             InfoView.Element<UIScrollView, CGPoint>("vc1 offset", vc1.tableView, \.contentOffset),
             InfoView.Element<UIScrollView, CGPoint>("vc2 offset", vc2.tableView, \.contentOffset),
             ])
-        addInfoView(infoView, to: v)
+        let vc = InspectionViewController(inspecting: v, infoView: infoView)
+        addButtonToViewController(vc)
         
-        addButtonToViewController(v)
-        
-        present(v, animated: true, completion: nil)
+        present(vc, animated: true, completion: nil)
+    }
+    
+    @objc func handleRefresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.refresher?.endRefreshing()
+        }
     }
 }
 
-class InfoView: UIStackView {
-    class Element<O: NSObject, V>: UILabel {
-        var observation: NSKeyValueObservation?
-        deinit { observation?.invalidate() }
-        init(_ title: String, _ o: O, _ keyPath: KeyPath<O, V>) {
-            super.init(frame: .zero)
-            observation = o.observe(keyPath, options: [.initial, .new]) { [unowned self] obj, change in
-                guard let v = change.newValue else {
-                    self.text = "\(title): nil"
-                    return
-                }
-                self.text = "\(title): \(v)"
-            }
-            font = .systemFont(ofSize: 10)
-            textColor = .black
-            textAlignment = .right
-            backgroundColor = UIColor.white.withAlphaComponent(0.4)
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-    }
-    
-    init(_ elements: [UIView]) {
-        super.init(frame: .zero)
-        elements.forEach(addArrangedSubview)
-        axis = .vertical
-    }
-    
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
 
-class TableViewController: UITableViewController {
+class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    let tableView = UITableView()
     var numberOfItems: Int
     
     init(numberOfItems: Int) {
         self.numberOfItems = numberOfItems
-        super.init(style: .grouped)
+        super.init(nibName: nil, bundle: nil)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "c")
         tableView.estimatedRowHeight = 0
-        tableView.contentInsetAdjustmentBehavior = .never
-        tableView.contentInset = .zero
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            ])
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfItems
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "c", for: indexPath)
         cell.textLabel?.text = "ROW - \(indexPath.row) "
         cell.backgroundColor = view.backgroundColor
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
     
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let change = indexPath.row % 2 == 0 ? 1 : -1
         let old = numberOfItems
         numberOfItems += change
