@@ -97,7 +97,6 @@ open class NonScrollView: UIScrollView {
     
     override open var contentOffset: CGPoint {
         didSet {
-            print(contentOffset)
             if shouldSilentlyChangeContentOffset {
                 recognizer.silentlyUpdateContentOffset(to: contentOffset)
             } else {

@@ -236,7 +236,6 @@ open class HeaderSegmentController: UIViewController {
         let scrollableContentOffsetY = currentScrollView?.contentOffset.y ?? 0
         let offset = CGPoint(x: 0, y: segmentOffsetY + scrollableContentOffsetY)
         updateContentOffset(to: offset)
-        print("calibrate \(offset)")
         return offset
     }
     
