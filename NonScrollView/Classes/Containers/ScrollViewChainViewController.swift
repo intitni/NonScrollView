@@ -23,8 +23,8 @@ open class ScrollViewChainController: UIViewController {
     private let chainA: ChainableVC
     private let chainB: ChainableVC
     
-    var chainAHeight: CGFloat = 0
-    var chainBHeight: CGFloat = 0
+    private var chainAHeight: CGFloat = 0
+    private var chainBHeight: CGFloat = 0
     
     private var disposables = DisposableBag()
     
@@ -74,7 +74,7 @@ open class ScrollViewChainController: UIViewController {
                         if self.chainBHeight <= ref.size.height { self.chainB.contentOffset = .zero; return }
                         
                         if offsetY > self.chainAHeight {
-                            self.chainB.contentOffset = ref.offset - .init(x: 0, y: max(0, self.chainAHeight - ref.size.height))
+                            self.chainB.contentOffset = ref.offset - .init(x: 0, y: max(0, self.chainAHeight))
                         } else {
                             self.chainB.contentOffset = .zero
                         }
