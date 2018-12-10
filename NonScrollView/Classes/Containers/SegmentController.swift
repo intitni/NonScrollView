@@ -165,8 +165,8 @@ extension SegmentController: UIPageViewControllerDataSource {
 extension SegmentController: UIPageViewControllerDelegate {
     public func pageViewController(
         _ pageViewController: UIPageViewController,
-        willTransitionTo pendingViewControllers: [UIViewController])
-    {
+        willTransitionTo pendingViewControllers: [UIViewController]
+    ) {
         delegate?.segmentControllerWillScroll(fromPageIndex: currentPageIndex)
     }
     
@@ -175,8 +175,8 @@ extension SegmentController: UIPageViewControllerDelegate {
         _ pageViewController: UIPageViewController,
         didFinishAnimating finished: Bool,
         previousViewControllers: [UIViewController],
-        transitionCompleted completed: Bool)
-    {
+        transitionCompleted completed: Bool
+    ) {
         guard completed else { return }
         guard let currentViewController = pageViewController.viewControllers?.first else { return }
         guard let index = vcs.firstIndex(of: currentViewController) else { return }

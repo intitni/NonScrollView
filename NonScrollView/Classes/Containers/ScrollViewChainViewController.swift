@@ -15,6 +15,9 @@ fileprivate extension ScrollViewChainControllerChainable {
     }
 }
 
+/// Provides a container controller that chains two view controllers that conforms to `ScrollViewChainControllerChainable`.
+///
+/// ScrollViewChainController will disable and take over chainable scroll view's scroll behaviour.
 open class ScrollViewChainController: UIViewController {
     public typealias ChainableVC = UIViewController & ScrollViewChainControllerChainable
     /// The main scroll view
@@ -51,24 +54,31 @@ open class ScrollViewChainController: UIViewController {
             viewPlacers: [
                 .init(view: chainA.view,
                       generateFrame: { [unowned self] ref in
+                        
                         let offsetY = ref.offset.y
                         let y = max(0, self.chainAHeight - ref.size.height) - offsetY
                         let potentialOffsetY = min(ref.offset.y, max(0, self.chainAHeight - ref.size.height))
                         return CGRect(origin: .init(x: 0, y: min(y, 0)),
                                       size: CGSize(width: ref.size.width,
                                                    height: min(ref.size.height, self.chainAHeight + max(0, -potentialOffsetY))))
+                        
                     }, updateView: { [unowned self] ref in
+                        
                         self.chainA.contentOffset = CGPoint(
                             x: 0,
                             y: min(ref.offset.y, max(0, self.chainAHeight - ref.size.height)))
+                        
                 }),
                 .init(view: chainB.view,
                       generateFrame: { [unowned self] ref in
+                        
                         let chainAMaxY = self.chainA.view.frame.maxY - ref.offset.y
                         return CGRect(origin: .init(x: 0, y: max(0, chainAMaxY)),
                                       size: CGSize(width: ref.size.width,
                                                    height: ref.size.height))
+                        
                     }, updateView: { [unowned self] ref in
+                        
                         let offsetY = ref.offset.y
                         
                         if offsetY > self.chainAHeight {
@@ -76,6 +86,7 @@ open class ScrollViewChainController: UIViewController {
                         } else {
                             self.chainB.contentOffset = .zero
                         }
+                        
                 })
             ],
             contentSizeGenerator: {

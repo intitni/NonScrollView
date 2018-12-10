@@ -102,6 +102,8 @@ open class HeaderSegmentController: UIViewController {
             s.isScrollEnabled = false
         }
         
+        /// In this example, we are only providing a stored frame for segmentController, frame for headerVC can be calculated from it.
+        /// There is no updateView blocks because they will be done in recognizer.onChange.
         let layout = NonScrollViewLayout(
             viewPlacers: [
                 .init(view: headerVC.view, generateFrame: { [unowned self] ref in
@@ -117,6 +119,7 @@ open class HeaderSegmentController: UIViewController {
                     return CGSize(width: ref.size.width,
                                   height: max(ref.size.height + self.headerHeight, height + self.headerHeight))
                 }
+                // If current page is not scrollable
                 return CGSize(width: ref.size.width, height: ref.size.height + self.headerHeight)
         })
         
@@ -124,6 +127,8 @@ open class HeaderSegmentController: UIViewController {
             let it = NonScrollView(frame: .zero, layout: layout)
             if #available(iOS 11.0, *) {
                 it.contentInsetAdjustmentBehavior = .never
+            } else {
+                automaticallyAdjustsScrollViewInsets = false
             }
             it.alwaysBounceVertical = true
             it.delegate = self
@@ -141,13 +146,14 @@ open class HeaderSegmentController: UIViewController {
         
         observeCurrentScrollViewContentHeightIfExists()
         
+        // I am using a lot of `calibrateContentOffset` in this observation because I JUST CAN'T GET IT RIGHT!
         scrollView.recognizer.onChange = { [unowned self] rec in
-            enum PullDirection { case pullUp, pullDown }
+            enum ScrollDirection { case scrollDown, scrollUp }
 
             let translationY = rec.translation.y
             guard translationY != 0 else { return }
             let hitTop = self.segmentControllerOrigin.y <= 0
-            let pullDirection = translationY < 0 ? PullDirection.pullDown : .pullUp
+            let scrollDirection = translationY < 0 ? ScrollDirection.scrollUp : .scrollDown
 
             if case .began = rec.touchState,
                 let location = rec.touchLocation(in: self.scrollView) {
@@ -164,12 +170,12 @@ open class HeaderSegmentController: UIViewController {
                 }
             }
             
-            switch (self.currentScrollView, hitTop, pullDirection) {
-            case (.some(let scrollable), true, .pullUp):
+            switch (self.currentScrollView, hitTop, scrollDirection) {
+            case (let scrollable?, true, .scrollDown):
                 
                 scrollable.contentOffset += rec.translation
                 
-            case (.some(let scrollable), true, .pullDown):
+            case (let scrollable?, true, .scrollUp):
                 
                 if scrollable.contentOffset.y > 0 {
                     let newOffset = scrollable.contentOffset + rec.translation
@@ -183,7 +189,7 @@ open class HeaderSegmentController: UIViewController {
                     self.segmentControllerOrigin = .init(x: 0, y: max(newOrigin.y, 0))
                 }
             
-             case (.some(let scrollable), false, .pullUp):
+             case (let scrollable?, false, .scrollDown):
                 
                 let newOrigin = self.segmentControllerOrigin - rec.translation
                 let y = newOrigin.y
@@ -193,7 +199,7 @@ open class HeaderSegmentController: UIViewController {
                     self.calibrateContentOffset()
                 }
                 
-            case (.some(let scrollable), false, .pullDown):
+            case (let scrollable?, false, .scrollUp):
                 
                 if scrollable.contentOffset.y > 0 {
                     if self.touchBeginsInSegmentController {
@@ -230,6 +236,7 @@ open class HeaderSegmentController: UIViewController {
         }
     }
 
+    /// Calibrates contentOffset of outter scrollView to match that of scrollable page.
     @discardableResult
     private func calibrateContentOffset() -> CGPoint {
         let segmentOffsetY = headerHeight - segmentControllerOrigin.y
@@ -239,6 +246,7 @@ open class HeaderSegmentController: UIViewController {
         return offset
     }
     
+    /// Silently update contentOffset of scrollView
     private func updateContentOffset(to offset: CGPoint) {
         scrollView.silentlyUpdateContentOffset(to: offset)
     }
