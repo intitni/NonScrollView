@@ -104,7 +104,7 @@ open class SegmentController: UIViewController {
                 it.rightAnchor.constraint(equalTo: view.rightAnchor),
                 it.heightAnchor.constraint(equalToConstant: vcs.count > 0 ? it.panelHeight : 0)
                 ])
-            it.backgroundColor = .red
+            it.backgroundColor = .white
             return it
         }()
         
