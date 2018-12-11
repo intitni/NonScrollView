@@ -25,6 +25,7 @@ public protocol SegmentControlType: AnyObject {
     var delegate: SegmentControlTypeDelegate? { get set }
     /// Provides data to segment control. When added to a `SegmentController`, it will be automatically set.
     var dataSource: SegmentControlTypeDataSource? { get set }
+    func reloadData()
 }
 
 public protocol PassiveSegmentControlType: SegmentControlType {
@@ -73,7 +74,6 @@ open class SegmentController: UIViewController {
         self.vcs = viewControllers
         self.segmentControl = segmentControl
         super.init(nibName: nil, bundle: nil)
-        viewControllers.forEach(self.addChild)
         segmentControl.delegate = self
         segmentControl.dataSource = self
     }
@@ -81,7 +81,7 @@ open class SegmentController: UIViewController {
     public func setViewControllers(_ viewControllers: [UIViewController]) {
         vcs.forEach { $0.removeFromParent() }
         vcs = viewControllers
-        viewControllers.forEach(self.addChild)
+        segmentControl.reloadData()
         guard let first = viewControllers.first else { return }
         pageViewController?.setViewControllers([first], direction: .forward, animated: false, completion: nil)
     }

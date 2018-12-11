@@ -45,7 +45,7 @@ open class HeaderSegmentController: UIViewController {
     private var segmentControllerOrigin = CGPoint.zero
     private var touchBeginsInSegmentController = false
     private var contentHeightObservation: NSKeyValueObservation?
-    private var contentOffsetObservation: NSKeyValueObservation?
+    private var contentInsetObservation: NSKeyValueObservation?
     
     /// Returns the current displaying page
     private var currentPageVC: UIViewController? {
@@ -59,11 +59,18 @@ open class HeaderSegmentController: UIViewController {
     
     deinit {
         contentHeightObservation?.invalidate()
-        contentOffsetObservation?.invalidate()
+        contentInsetObservation?.invalidate()
     }
     
     open func invalidateLayout() {
+        let offset = calibrateContentOffset()
         scrollView.invalidateLayout()
+        updateContentOffset(to: offset)
+    }
+    
+    open func setPages(_ viewControllers: [UIViewController]) {
+        segmentController.setViewControllers(viewControllers)
+        invalidateLayout()
     }
     
     /// Initailize a `HeaderSegmentController`.
@@ -229,10 +236,17 @@ open class HeaderSegmentController: UIViewController {
     
     private func observeCurrentScrollViewContentHeightIfExists() {
         contentHeightObservation?.invalidate()
-        contentHeightObservation = currentScrollView?.observe(\.contentSize, options: [.new, .old]) { [unowned self] s, change in
+        contentHeightObservation = currentScrollView?.observe(\.contentSize, options: [.new, .old, .initial]) { [unowned self] s, change in
             if let old = change.oldValue, let new = change.newValue, old === new { return }
             self.scrollView.invalidateLayout()
             self.calibrateContentOffset()
+        }
+        contentInsetObservation?.invalidate()
+        contentInsetObservation = currentScrollView?.observe(\.contentSize, options: [.new, .old, .initial]) { [unowned self] s, change in
+            if let old = change.oldValue, let newInset = change.newValue, old === newInset { return }
+            var ci = self.scrollView.contentInset
+            ci.bottom = s.contentInset.bottom
+            self.scrollView.contentInset = ci
         }
     }
 
@@ -273,10 +287,7 @@ open class HeaderSegmentController: UIViewController {
 extension HeaderSegmentController: SegmentControllerDelegate {
     
     open func segmentControllerDidScroll(toPageIndex pageIndex: Int) {
-        let offset = calibrateContentOffset()
-        scrollView.invalidateLayout()
-        updateContentOffset(to: offset)
-        
+        invalidateLayout()
         observeCurrentScrollViewContentHeightIfExists()
     }
     
