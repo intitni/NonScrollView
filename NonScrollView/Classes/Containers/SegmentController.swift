@@ -84,14 +84,21 @@ open class SegmentController: UIViewController {
     }
     
     public func setViewControllers(_ viewControllers: [UIViewController]) {
+        guard viewControllers != vcs else { return }
+        
+        delegate?.segmentControllerWillScroll(fromPageIndex: currentPageIndex)
         vcs.forEach { $0.removeFromParent() }
         vcs = viewControllers
+        currentPageIndex = 0
         segmentControl.reloadData()
+        (segmentControl as? PassiveSegmentControlType)?.highlightItem(atIndex: 0, animated: false)
+        (segmentControl as? ProactiveSegmentControlType)?.updateHighlighterOffset(toMatchPageOffset: 0)
         segmentControl.isHidden = vcs.count <= 1
         pinToSegmentControlBottomConstraint.isActive = !segmentControl.isHidden
         if let first = viewControllers.first {
             pageViewController?.setViewControllers([first], direction: .forward, animated: false, completion: nil)
         }
+        delegate?.segmentControllerDidScroll(toPageIndex: 0)
         
         UIView.animate(withDuration: 0.2) {
             self.view.layoutIfNeeded()
@@ -156,6 +163,10 @@ open class SegmentController: UIViewController {
         
         segmentControl.isHidden = vcs.count <= 1
         pinToSegmentControlBottomConstraint.isActive = !segmentControl.isHidden
+        
+        segmentControl.reloadData()
+        (segmentControl as? PassiveSegmentControlType)?.highlightItem(atIndex: 0, animated: false)
+        (segmentControl as? ProactiveSegmentControlType)?.updateHighlighterOffset(toMatchPageOffset: 0)
     }
 }
 
@@ -184,8 +195,8 @@ extension SegmentController: UIPageViewControllerDataSource {
 extension SegmentController: UIPageViewControllerDelegate {
     public func pageViewController(
         _ pageViewController: UIPageViewController,
-        willTransitionTo pendingViewControllers: [UIViewController]
-    ) {
+        willTransitionTo pendingViewControllers: [UIViewController])
+    {
         delegate?.segmentControllerWillScroll(fromPageIndex: currentPageIndex)
     }
     
@@ -194,8 +205,8 @@ extension SegmentController: UIPageViewControllerDelegate {
         _ pageViewController: UIPageViewController,
         didFinishAnimating finished: Bool,
         previousViewControllers: [UIViewController],
-        transitionCompleted completed: Bool
-    ) {
+        transitionCompleted completed: Bool)
+    {
         guard completed else { return }
         guard let currentViewController = pageViewController.viewControllers?.first else { return }
         guard let index = vcs.firstIndex(of: currentViewController) else { return }

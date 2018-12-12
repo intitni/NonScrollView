@@ -70,7 +70,6 @@ open class HeaderSegmentController: UIViewController {
     
     open func setPages(_ viewControllers: [UIViewController]) {
         segmentController.setViewControllers(viewControllers)
-        invalidateLayout()
     }
     
     /// Initailize a `HeaderSegmentController`.
@@ -132,11 +131,6 @@ open class HeaderSegmentController: UIViewController {
         
         scrollView = {
             let it = NonScrollView(frame: .zero, layout: layout)
-            if #available(iOS 11.0, *) {
-                it.contentInsetAdjustmentBehavior = .never
-            } else {
-                automaticallyAdjustsScrollViewInsets = false
-            }
             it.alwaysBounceVertical = true
             it.delegate = self
             it.translatesAutoresizingMaskIntoConstraints = false
