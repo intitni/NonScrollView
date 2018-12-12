@@ -17,7 +17,7 @@ extension SegmentController {
     }
     
     fileprivate var segmentControlHeight: CGFloat {
-        return vcs.count > 1 ? segmentControl.panelHeight : 0
+        return segmentControl.isHidden ? 0 : segmentControl.panelHeight
     }
     
     fileprivate var scrollableContentHeight: CGFloat? {

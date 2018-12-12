@@ -52,6 +52,7 @@ open class SegmentController: UIViewController {
     public var vcs: [UIViewController]
     public var segmentControl: UIControl & SegmentControlType
     public var currentPageIndex: Int = 0
+    private var pinToSegmentControlBottomConstraint: NSLayoutConstraint!
     
     public var currentPageVC: UIViewController {
         return vcs[currentPageIndex]
@@ -68,6 +69,10 @@ open class SegmentController: UIViewController {
         return offset + base
     }
     
+    private var segmentHeight: CGFloat {
+        return segmentControl.panelHeight
+    }
+    
     private let disposables = DisposableBag()
     
     public init(segmentControl: UIControl & SegmentControlType, viewControllers: [UIViewController]) {
@@ -82,8 +87,15 @@ open class SegmentController: UIViewController {
         vcs.forEach { $0.removeFromParent() }
         vcs = viewControllers
         segmentControl.reloadData()
-        guard let first = viewControllers.first else { return }
-        pageViewController?.setViewControllers([first], direction: .forward, animated: false, completion: nil)
+        segmentControl.isHidden = vcs.count <= 1
+        pinToSegmentControlBottomConstraint.isActive = !segmentControl.isHidden
+        if let first = viewControllers.first {
+            pageViewController?.setViewControllers([first], direction: .forward, animated: false, completion: nil)
+        }
+        
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -102,7 +114,7 @@ open class SegmentController: UIViewController {
                 it.topAnchor.constraint(equalTo: view.topAnchor),
                 it.leftAnchor.constraint(equalTo: view.leftAnchor),
                 it.rightAnchor.constraint(equalTo: view.rightAnchor),
-                it.heightAnchor.constraint(equalToConstant: vcs.count > 0 ? it.panelHeight : 0)
+                it.heightAnchor.constraint(equalToConstant: segmentHeight)
                 ])
             it.backgroundColor = .white
             return it
@@ -116,8 +128,12 @@ open class SegmentController: UIViewController {
             
             view.addSubview(it.view)
             it.view.translatesAutoresizingMaskIntoConstraints = false
+            let pinToTop = it.view.topAnchor.constraint(equalTo: view.topAnchor)
+            pinToTop.priority = .defaultLow
+            pinToSegmentControlBottomConstraint = it.view.topAnchor.constraint(equalTo: segmentControl.bottomAnchor)
             NSLayoutConstraint.activate([
-                it.view.topAnchor.constraint(equalTo: segmentControl.bottomAnchor),
+                pinToSegmentControlBottomConstraint,
+                pinToTop,
                 it.view.leftAnchor.constraint(equalTo: view.leftAnchor),
                 it.view.rightAnchor.constraint(equalTo: view.rightAnchor),
                 it.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -137,6 +153,9 @@ open class SegmentController: UIViewController {
             
             return it
         }()
+        
+        segmentControl.isHidden = vcs.count <= 1
+        pinToSegmentControlBottomConstraint.isActive = !segmentControl.isHidden
     }
 }
 
