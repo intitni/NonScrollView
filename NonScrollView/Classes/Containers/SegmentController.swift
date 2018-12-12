@@ -112,6 +112,8 @@ open class SegmentController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
 
+        automaticallyAdjustsScrollViewInsets = false
+        
         segmentControl = {
             let it = segmentControl
             it.delegate = self
@@ -127,7 +129,6 @@ open class SegmentController: UIViewController {
             return it
         }()
         
-        automaticallyAdjustsScrollViewInsets = false
         pageViewController = {
             let it = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
             it.dataSource = self
@@ -175,16 +176,16 @@ open class SegmentController: UIViewController {
 extension SegmentController: UIPageViewControllerDataSource {
     public func pageViewController(
         _ pageViewController: UIPageViewController,
-        viewControllerAfter viewController: UIViewController
-    ) -> UIViewController? {
+        viewControllerAfter viewController: UIViewController) -> UIViewController?
+    {
         guard let index = vcs.firstIndex(of: viewController), index < vcs.endIndex - 1 else { return nil }
         return vcs[index + 1]
     }
     
     public func pageViewController(
         _ pageViewController: UIPageViewController,
-        viewControllerBefore viewController: UIViewController
-    ) -> UIViewController? {
+        viewControllerBefore viewController: UIViewController) -> UIViewController?
+    {
         guard let index = vcs.firstIndex(of: viewController), index > 0 else { return nil }
         return vcs[index - 1]
     }

@@ -2,6 +2,10 @@ import UIKit
 import NonScrollView
 
 class SegmentControl: UIControl, PassiveSegmentControlType, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    func reloadData() {
+        collectionView.reloadData()
+    }
+    
     var panelHeight: CGFloat { return 44 }
     let identifier = "cell"
     

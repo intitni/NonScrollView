@@ -265,7 +265,7 @@ open class HeaderSegmentController: UIViewController {
         contentInset.top = -(self.currentScrollView?.contentOffset.y ?? 0)
         guard contentInset != scrollView.contentInset else { return }
         scrollView.contentInset = contentInset
-        scrollView.silentlyUpdateContentOffset(to: preservedContentOffset)
+        scrollView.contentOffset = preservedContentOffset
     }
     
     private func convertContentInsetToDefaultMode() {
@@ -274,7 +274,7 @@ open class HeaderSegmentController: UIViewController {
         contentInset.top = 0
         guard contentInset != scrollView.contentInset else { return }
         scrollView.contentInset = contentInset
-        scrollView.silentlyUpdateContentOffset(to: preservedContentOffset)
+        scrollView.contentOffset = preservedContentOffset
     }
 }
 

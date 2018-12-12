@@ -60,7 +60,8 @@ open class ScrollViewChainController: UIViewController {
                         let potentialOffsetY = min(ref.offset.y, max(0, self.chainAHeight - ref.size.height))
                         return CGRect(origin: .init(x: 0, y: min(y, 0)),
                                       size: CGSize(width: ref.size.width,
-                                                   height: min(ref.size.height, self.chainAHeight + max(0, -potentialOffsetY))))
+                                                   height: min(ref.size.height,
+                                                               self.chainAHeight + max(0, -potentialOffsetY))))
                         
                     }, updateView: { [unowned self] ref in
                         
