@@ -58,8 +58,8 @@ open class SegmentController: UIViewController {
         return vcs[currentPageIndex]
     }
 
-    var pageViewController: UIPageViewController!
-    var pageScrollView: UIScrollView?
+    public var pageViewController: UIPageViewController!
+    public var pageScrollView: UIScrollView?
     
     private var pageOffset: CGFloat {
         let base = CGFloat(currentPageIndex)
