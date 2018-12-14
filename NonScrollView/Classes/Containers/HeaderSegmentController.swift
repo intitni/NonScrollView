@@ -40,7 +40,13 @@ open class HeaderSegmentController: UIViewController {
     public let headerVC: UIViewController
     public let segmentController: SegmentController
     
-    public var headerHeight: CGFloat { didSet { invalidateLayout() } }
+    public var headerHeight: CGFloat {
+        didSet {
+            let offset = calibrateContentOffset()
+            scrollView.invalidateLayout()
+            updateContentOffset(to: CGPoint(x: 0, y: max(offset.y, 0)))
+        }
+    }
     
     private var segmentControllerOrigin = CGPoint.zero
     private var touchBeginsInSegmentController = false
@@ -123,11 +129,22 @@ open class HeaderSegmentController: UIViewController {
                 [unowned self] ref in
                 if let height = self.segmentController.scrollableContentHeight {
                     return CGSize(width: ref.size.width,
-                                  height: max(ref.size.height + self.headerHeight, height + self.headerHeight))
+                                  height: max(ref.size.height, height + self.headerHeight))
                 }
                 // If current page is not scrollable
                 return CGSize(width: ref.size.width, height: ref.size.height + self.headerHeight)
-        })
+            },
+            contentInsetGenerator: {
+                [unowned self] ref in
+                if let scrollable = self.currentScrollView, let height = self.segmentController.scrollableContentHeight {
+                    if height > ref.size.height - scrollable.contentInset.top - scrollable.contentInset.bottom {
+                        return scrollable.contentInset
+                    }
+                    return .zero
+                }
+                // If current page is not scrollable
+                return .zero
+            })
         
         scrollView = {
             let it = NonScrollView(frame: .zero, layout: layout)
@@ -236,11 +253,10 @@ open class HeaderSegmentController: UIViewController {
             self.calibrateContentOffset()
         }
         contentInsetObservation?.invalidate()
-        contentInsetObservation = currentScrollView?.observe(\.contentSize, options: [.new, .old, .initial]) { [unowned self] s, change in
+        contentInsetObservation = currentScrollView?.observe(\.contentInset, options: [.new, .old, .initial]) { [unowned self] s, change in
             if let old = change.oldValue, let newInset = change.newValue, old === newInset { return }
-            var ci = self.scrollView.contentInset
-            ci.bottom = s.contentInset.bottom
-            self.scrollView.contentInset = ci
+            self.scrollView.invalidateLayout()
+            self.calibrateContentOffset()
         }
     }
 

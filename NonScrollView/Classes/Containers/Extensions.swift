@@ -139,6 +139,13 @@ extension CGRect {
     }
 }
 
+extension UIEdgeInsets {
+    static func ===(lhs: UIEdgeInsets, rhs: UIEdgeInsets) -> Bool {
+        return lhs.top === rhs.top && lhs.bottom === rhs.bottom
+            && lhs.left === rhs.left && lhs.right === rhs.right
+    }
+}
+
 class DisposableBag {
     var disposables: [NSKeyValueObservation] = []
     deinit { disposables.forEach { $0.invalidate() } }

@@ -98,7 +98,10 @@ open class ScrollViewChainController: UIViewController {
                 self.chainBHeight = self.chainB.contentHeight
                 let height = self.chainAHeight + self.chainBHeight
                 return CGSize(width: ref.size.width, height: height)
-        })
+            },
+            contentInsetGenerator: { _ in
+                return .zero
+            })
 
         scrollView = {
             let it = NonScrollView(frame: .zero, layout: layout)
