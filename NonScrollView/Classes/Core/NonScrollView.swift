@@ -73,15 +73,12 @@ public final class NonScrollViewLayout {
     
     fileprivate let viewPlacers: [ViewPlacer]
     fileprivate let generateContentSize: (FrameOfReference) -> CGSize
-    fileprivate let generatecontentInset: (FrameOfReference) -> UIEdgeInsets
     public init(
         viewPlacers: [ViewPlacer],
-        contentSizeGenerator: @escaping (FrameOfReference) -> CGSize,
-        contentInsetGenerator: @escaping (FrameOfReference) -> UIEdgeInsets)
+        contentSizeGenerator: @escaping (FrameOfReference) -> CGSize)
     {
         self.viewPlacers = viewPlacers
         self.generateContentSize = contentSizeGenerator
-        self.generatecontentInset = contentInsetGenerator
     }
 }
 
@@ -122,7 +119,6 @@ open class NonScrollView: UIScrollView {
     /// Inform NonScrollView to regenerate contentSize.
     public func invalidateLayout() {
         contentSize = layout.generateContentSize(frameOfReference)
-        contentInset = layout.generatecontentInset(frameOfReference)
         layoutMappedViews()
     }
 

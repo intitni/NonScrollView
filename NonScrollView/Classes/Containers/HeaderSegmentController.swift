@@ -42,9 +42,9 @@ open class HeaderSegmentController: UIViewController {
     
     public var headerHeight: CGFloat {
         didSet {
-            let offset = calibrateContentOffset()
+            segmentControllerOrigin = .init(x: 0, y: headerHeight)
+            scrollView.silentlyUpdateContentOffset(to: .zero)
             scrollView.invalidateLayout()
-            updateContentOffset(to: CGPoint(x: 0, y: max(offset.y, 0)))
         }
     }
     
@@ -88,8 +88,8 @@ open class HeaderSegmentController: UIViewController {
         headerVC: UIViewController,
         defaultHeaderHeight: CGFloat,
         segmentControl: UIControl & SegmentControlType,
-        pages: [UIViewController]
-    ) {
+        pages: [UIViewController])
+    {
         self.headerVC = headerVC
         self.headerHeight = defaultHeaderHeight
         segmentController = SegmentController(segmentControl: segmentControl, viewControllers: pages)
@@ -129,21 +129,12 @@ open class HeaderSegmentController: UIViewController {
                 [unowned self] ref in
                 if let height = self.segmentController.scrollableContentHeight {
                     return CGSize(width: ref.size.width,
-                                  height: max(ref.size.height, height + self.headerHeight))
+                                  height: max(ref.size.height, height + self.headerHeight)
+                                        + (self.currentScrollView?.contentInset.top ?? 0)
+                                        + (self.currentScrollView?.contentInset.bottom ?? 0))
                 }
                 // If current page is not scrollable
                 return CGSize(width: ref.size.width, height: ref.size.height + self.headerHeight)
-            },
-            contentInsetGenerator: {
-                [unowned self] ref in
-                if let scrollable = self.currentScrollView, let height = self.segmentController.scrollableContentHeight {
-                    if height > ref.size.height - scrollable.contentInset.top - scrollable.contentInset.bottom {
-                        return scrollable.contentInset
-                    }
-                    return .zero
-                }
-                // If current page is not scrollable
-                return .zero
             })
         
         scrollView = {
@@ -295,6 +286,12 @@ open class HeaderSegmentController: UIViewController {
 }
 
 extension HeaderSegmentController: SegmentControllerDelegate {
+    
+    open func segmentControllerDidResetPages() {
+        segmentControllerOrigin = .init(x: 0, y: headerHeight)
+        scrollView.silentlyUpdateContentOffset(to: .zero)
+        observeCurrentScrollViewContentHeightIfExists()
+    }
     
     open func segmentControllerDidScroll(toPageIndex pageIndex: Int) {
         invalidateLayout()
