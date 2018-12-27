@@ -3,6 +3,7 @@ import UIKit
 // MARK: - Protocols
 
 public protocol SegmentControllerDelegate: AnyObject {
+    func segmentControllerDidResetPages()
     func segmentControllerDidScroll(toPageIndex pageIndex: Int)
     func segmentControllerWillScroll(fromPageIndex pageIndex: Int)
 }
@@ -98,7 +99,7 @@ open class SegmentController: UIViewController {
         if let first = viewControllers.first {
             pageViewController?.setViewControllers([first], direction: .forward, animated: false, completion: nil)
         }
-        delegate?.segmentControllerDidScroll(toPageIndex: 0)
+        delegate?.segmentControllerDidResetPages()
         
         UIView.animate(withDuration: 0.2) {
             self.view.layoutIfNeeded()
