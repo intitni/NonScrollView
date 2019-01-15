@@ -9,6 +9,8 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+In the example project, you may tap on even rows to add more cells, and odd rows to decrease.
+
 ## Installation
 
 NonScrollView is available through [CocoaPods](http://cocoapods.org). To install
