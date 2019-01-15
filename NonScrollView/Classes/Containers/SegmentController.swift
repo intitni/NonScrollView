@@ -74,7 +74,7 @@ open class SegmentController: UIViewController {
         return segmentControl.panelHeight
     }
     
-    private let disposables = DisposableBag()
+    private var disposables = [NSKeyValueObservation]()
     
     public init(segmentControl: UIControl & SegmentControlType, viewControllers: [UIViewController]) {
         self.vcs = viewControllers
@@ -150,9 +150,10 @@ open class SegmentController: UIViewController {
             
             for case let scrollView as UIScrollView in it.view.subviews {
                 pageScrollView = scrollView
-                scrollView.observe(\.contentOffset) { [weak self] _, _ in
+                let ob = scrollView.observe(\.contentOffset, options: [.initial, .new]) { [weak self] _, change in
                     self?.scrollViewContentOffsetDidChange()
-                } .addTo(disposables)
+                }
+                disposables.append(ob)
                 break
             }
             
