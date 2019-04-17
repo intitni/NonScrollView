@@ -15,6 +15,7 @@
 			dependencies = (
 			);
 			name = "Reveal-SDK";
+			productName = "Reveal-SDK";
 		};
 /* End PBXAggregateTarget section */
 
@@ -50,29 +51,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01F8D97AC1B203517865517929A66B4A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		01F8D97AC1B203517865517929A66B4A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		07E9DEC69F3D9F460846B37BD4F7291C /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0FF0490373DB643F2C2AB9BC6D884C12 /* NonScrollView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NonScrollView-prefix.pch"; sourceTree = "<group>"; };
 		1D03934275A1DF78C828FF6CA438B07B /* Pods-NonScrollView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NonScrollView_Example.release.xcconfig"; sourceTree = "<group>"; };
 		2478B5858FA6E23FD06AC0FB85895784 /* HeaderSegmentController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HeaderSegmentController.swift; sourceTree = "<group>"; };
 		2A7D47206B6D1968211EBCAAA0E49891 /* NonScrollView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NonScrollView-umbrella.h"; sourceTree = "<group>"; };
-		2FADC0DD970923334BBEFED852AFA3D3 /* NonScrollView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = NonScrollView.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		345FE540133213DCDC5805A290AB15DC /* NonScrollView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = NonScrollView.framework; path = NonScrollView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FADC0DD970923334BBEFED852AFA3D3 /* NonScrollView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = NonScrollView.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		345FE540133213DCDC5805A290AB15DC /* NonScrollView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NonScrollView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38EA445E97C78126E3FD04A2A2A030CA /* NonScrollView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NonScrollView.swift; sourceTree = "<group>"; };
 		4856D4F05F24FB115C701869D71C7070 /* Pods-NonScrollView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NonScrollView_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		48C08CB910DC640B08EF0DB49D4AAD8F /* Pods_NonScrollView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_NonScrollView_Example.framework; path = "Pods-NonScrollView_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		48C08CB910DC640B08EF0DB49D4AAD8F /* Pods_NonScrollView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NonScrollView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56B4E6AB4F9C2D8F90AF756525CD9326 /* Pods-NonScrollView_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NonScrollView_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		59D351204929CB0A96C96E53A039C1E6 /* NonScrollView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NonScrollView.xcconfig; sourceTree = "<group>"; };
 		847845BA2BC4CC267B12B573DB71A55F /* Pods-NonScrollView_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NonScrollView_Example-frameworks.sh"; sourceTree = "<group>"; };
 		98586D102AC75AE6CACEC4E8BE8AD335 /* NonScrollView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "NonScrollView-Info.plist"; sourceTree = "<group>"; };
 		A466B2EB38A50B12C24E901EA4B9F349 /* Pods-NonScrollView_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-NonScrollView_Example.modulemap"; sourceTree = "<group>"; };
-		B36AB396275697EEE1A5B13BA8A38FE3 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		B36AB396275697EEE1A5B13BA8A38FE3 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B53659DA0FC75EEC5F27D5459CB37EA0 /* NonScrollView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NonScrollView-dummy.m"; sourceTree = "<group>"; };
 		BCC7D0987C63838BF549A412BF0F2F32 /* NonScrollView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = NonScrollView.modulemap; sourceTree = "<group>"; };
 		C48F4AC20142A9346F3084D04F8722C4 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "RevealServer-19/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		CF20BC876EE0AFFD6AD577DC2058EC1F /* ScrollViewChainViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScrollViewChainViewController.swift; sourceTree = "<group>"; };
 		D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		DBAE5753A7E0936CEA99AB586A61C604 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		DBAE5753A7E0936CEA99AB586A61C604 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DF63786F6E1F4DC90A98415BA65D5BBD /* Pods-NonScrollView_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-NonScrollView_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		E1056F6357CCEFA0CEE550E9CD381E5B /* Pods-NonScrollView_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-NonScrollView_Example-umbrella.h"; sourceTree = "<group>"; };
 		E26184A66111E83D62422EF780E12857 /* Reveal-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Reveal-SDK.xcconfig"; sourceTree = "<group>"; };
@@ -166,7 +167,6 @@
 				40A5DF8898F2A9B902D60B79DE768464 /* Frameworks */,
 				4863A7B0DA4BC160D2562AFDE6F855F0 /* Support Files */,
 			);
-			name = "Reveal-SDK";
 			path = "Reveal-SDK";
 			sourceTree = "<group>";
 		};
@@ -331,12 +331,18 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
+				TargetAttributes = {
+					155D40A24B8EAF0DB69546B0C2A0BAC9 = {
+						LastSwiftMigration = 1020;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
@@ -525,8 +531,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -557,7 +562,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -640,7 +645,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

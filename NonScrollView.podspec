@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     
   s.name             = 'NonScrollView'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'NonScrollView is not a scroll view.'
 
   s.description      = 'NonScrollView is not a scroll view. Yes.'
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/intitni'
 
   s.ios.deployment_target = '9.0'
-  s.swift_version = '4.2'
+  s.swift_version = '5'
 
   s.source_files = 'NonScrollView/Classes/**/*'
   
